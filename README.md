@@ -1,11 +1,12 @@
-# REST API Go With Firebase Firestore
-Simple REST APIs with database realtime firebase firestore
+# REST API Go With Firebase Cloud Firestore
+Simple REST APIs with database firebase cloud firestore
 # BUILD WITH
 - Go 1.20
-- Cloud Firestore
+- [Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart)
 
 # HOW TO RUN PROJECT ?
-TBA
+- Export your service account credentials, download and place your sa json on credential folder.
+- Update const value `DATABASE_LOCATION_FILE_PATH` based on your sa json location.
 
 # GET
 - TBA

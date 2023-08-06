@@ -10,15 +10,19 @@ import (
 	"google.golang.org/api/option"
 )
 
+const (
+	DATABASE_LOCATION_FILE_PATH = "./credential/sa-key.json"
+)
+
 // Database - client
 type Database struct {
 	FirestoreClient *firestore.Client
 }
 
-// InitDB - .
+// * InitDB - Make sure your service account credential json correct.
 func InitDB() Database {
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("./credential/sa-key.json") // * Set your service account json here
+	sa := option.WithCredentialsFile(DATABASE_LOCATION_FILE_PATH)
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		logger.Log.Fatalln(err)
