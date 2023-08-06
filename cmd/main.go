@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"log"
 
 	"github.com/voltgizerz/rest-api-go-firestore/config"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/repository"
 )
 
@@ -15,6 +17,8 @@ func main() {
 
 	userRepo := repository.NewUserRepository(db)
 
-	_ = userRepo.InsertUserData(context.Background())
-	_ = userRepo.GetUserData(context.Background())
+	id, _ := userRepo.InsertUserData(context.Background(), entity.User{})
+	log.Println(id)
+	data, _ := userRepo.GetUserData(context.Background())
+	log.Println(data)
 }
