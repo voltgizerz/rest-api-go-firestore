@@ -5,8 +5,8 @@ import (
 	"log"
 
 	"github.com/voltgizerz/rest-api-go-firestore/config"
-	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/repository"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/usecase"
 )
 
 func main() {
@@ -17,8 +17,8 @@ func main() {
 
 	userRepo := repository.NewUserRepository(db)
 
-	id, _ := userRepo.InsertUserData(context.Background(), entity.User{})
-	log.Println(id)
-	data, _ := userRepo.GetUserData(context.Background())
-	log.Println(data)
+	userUsecase := usecase.NewUserUsecase(userRepo)
+
+	userData, err := userUsecase.GetAllUserData(context.Background())
+	log.Println(userData, err)
 }

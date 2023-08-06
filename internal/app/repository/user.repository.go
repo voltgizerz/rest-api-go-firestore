@@ -6,6 +6,7 @@ import (
 	"github.com/icrowley/fake"
 	"github.com/sirupsen/logrus"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
 	"github.com/voltgizerz/rest-api-go-firestore/logger"
 	"google.golang.org/api/iterator"
 
@@ -16,16 +17,11 @@ const (
 	USER_COLLECTION_NAME = "users"
 )
 
-type UserRepositoryInterface interface {
-	GetUserData(ctx context.Context) ([]entity.User, error)
-	InsertUserData(ctx context.Context, data entity.User) (string, error)
-}
-
 type UserRepository struct {
 	DB *config.Database
 }
 
-func NewUserRepository(db *config.Database) UserRepositoryInterface {
+func NewUserRepository(db *config.Database) interfaces.UserRepositoryInterface {
 	return &UserRepository{
 		DB: db,
 	}
