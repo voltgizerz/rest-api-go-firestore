@@ -1,6 +1,7 @@
 package entity
 
 type User struct {
+	DocRefID  string
 	FirstName string `firestore:"firstname"`
 	LastName  string `firestore:"lastname"`
 	Username  string `firestore:"username"`

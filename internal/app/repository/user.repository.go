@@ -59,6 +59,7 @@ func (u *UserRepository) GetUserData(ctx context.Context) ([]entity.User, error)
 
 			return nil, err
 		}
+		user.DocRefID = doc.Ref.ID
 
 		users = append(users, user)
 	}
