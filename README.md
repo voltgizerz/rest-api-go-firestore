@@ -6,7 +6,7 @@ Simple REST APIs with database firebase cloud firestore
 
 # HOW TO RUN PROJECT ?
 - Export your service account credentials, download and place your sa json on credential folder.
-- Update const value `DATABASE_LOCATION_FILE_PATH` based on your sa json location.
+- Update const value `SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH` based on your sa json location.
 
 # GET
 - TBA

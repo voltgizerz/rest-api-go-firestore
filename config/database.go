@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	DATABASE_LOCATION_FILE_PATH = "./credential/sa-key.json"
+	SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH = "./credential/sa-key.json"
 )
 
 // Database - client
@@ -22,7 +22,8 @@ type Database struct {
 // * InitDB - Make sure your service account credential json correct.
 func InitDB() *Database {
 	ctx := context.Background()
-	sa := option.WithCredentialsFile(DATABASE_LOCATION_FILE_PATH)
+
+	sa := option.WithCredentialsFile(SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH)
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		logger.Log.Fatalln(err)
@@ -33,7 +34,7 @@ func InitDB() *Database {
 		logger.Log.Fatalln(err)
 	}
 
-	logger.Log.Info("Database Firestore connected succesfully...")
+	logger.Log.Info("Database firestore connected succesfully...")
 
 	return &Database{
 		FirestoreClient: client,

@@ -64,6 +64,7 @@ func (u *UserRepository) GetUserData(ctx context.Context) ([]entity.User, error)
 }
 
 func (u *UserRepository) InsertUserData(ctx context.Context, data entity.User) (string, error) {
+	// Currently using fake data
 	docRef, _, err := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Add(ctx, map[string]interface{}{
 		"firstname": fake.FirstName(),
 		"lastname":  fake.LastName(),
