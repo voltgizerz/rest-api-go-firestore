@@ -1,0 +1,40 @@
+name: Lint & Test
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+  push:
+    branches:
+      - master
+      - develop
+    paths:
+      - '*/.go'
+      - 'revive.toml'
+      - '.github/workflows/revive-lint.yml'
+
+jobs:
+
+  lint:
+    name: Lint Service
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.17'
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    
+    - name: Run Test
+      run: 	go test -v -cover ./...
+
+    - name: Run Revive Action
+      uses: docker://morphy/revive-action:v2
+      with:
+        config: revive.toml
+
+    - name: Check formatting
+      run: gofmt -l .
