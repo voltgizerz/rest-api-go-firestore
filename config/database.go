@@ -20,7 +20,7 @@ type Database struct {
 }
 
 // * InitDB - Make sure your service account credential json correct.
-func InitDB() Database {
+func InitDB() *Database {
 	ctx := context.Background()
 	sa := option.WithCredentialsFile(DATABASE_LOCATION_FILE_PATH)
 	app, err := firebase.NewApp(ctx, nil, sa)
@@ -35,7 +35,12 @@ func InitDB() Database {
 
 	logger.Log.Info("Database Firestore connected succesfully...")
 
-	return Database{
+	return &Database{
 		FirestoreClient: client,
 	}
+}
+
+// CloseFirestoreClient - clone firestore client
+func (d *Database) CloseFirestoreClient() {
+	d.FirestoreClient.Close()
 }
