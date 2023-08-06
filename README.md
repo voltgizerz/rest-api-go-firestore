@@ -1,4 +1,4 @@
-# REST API Go With Firbase Firestore
+# REST API Go With Firebase Firestore
 Simple REST APIs with database realtime firebase firestore
 # BUILD WITH
 TBA
