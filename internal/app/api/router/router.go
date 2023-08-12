@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interactor"
 )
 
@@ -24,6 +25,10 @@ func NewRouter(interactor interactor.APInteractor) *Router {
 		APInteractor: interactor,
 	}
 
+	r.GinEngine.GET("/ping", func(c *gin.Context) {
+		c.String(http.StatusOK, "pong!")
+	})
+
 	r.userRouter()
 
 	return r
@@ -41,10 +46,6 @@ func RunAPIServer(r *Router) {
 }
 
 func (r *Router) userRouter() {
-	r.GinEngine.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong!")
-	})
-
 	r.GinEngine.GET("/api/users", func(c *gin.Context) {
 		ctx := c.Request.Context()
 
@@ -55,5 +56,26 @@ func (r *Router) userRouter() {
 		}
 
 		api.JSONResponse(c, http.StatusOK, "User data retrieved successfully", users)
+	})
+
+	r.GinEngine.POST("api/users", func(c *gin.Context) {
+		ctx := c.Request.Context()
+
+		var user entity.User
+		// * currently data user filled by faker
+		// if err := c.ShouldBindJSON(&user); err != nil {
+		// 	api.JSONResponse(c, http.StatusBadRequest, "Invalid request body", nil)
+		// 	return
+		// }
+
+		docRefID, err := r.APInteractor.UserInteractor.InsertUserData(ctx, user)
+		if err != nil {
+			api.JSONResponse(c, http.StatusInternalServerError, "Error inserting user data", nil)
+			return
+		}
+
+		api.JSONResponse(c, http.StatusCreated, "User data inserted successfully", map[string]string{
+			"DocRefID": docRefID,
+		})
 	})
 }

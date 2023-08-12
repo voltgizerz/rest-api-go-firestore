@@ -13,4 +13,5 @@ type UserRepositoryInterface interface {
 
 type UserUsecaseInterface interface {
 	GetAllUserData(ctx context.Context) ([]entity.User, error)
+	InsertUserData(ctx context.Context, data entity.User) (string, error)
 }

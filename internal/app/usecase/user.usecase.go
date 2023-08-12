@@ -31,3 +31,16 @@ func (u *UserUsecase) GetAllUserData(ctx context.Context) ([]entity.User, error)
 
 	return users, nil
 }
+
+func (u *UserUsecase) InsertUserData(ctx context.Context, data entity.User) (string, error) {
+	docRefID, err := u.UserRepo.InsertUserData(ctx, data)
+	if err != nil {
+		logger.Log.WithFields(logrus.Fields{
+			"error": err.Error(),
+		}).Error("[InsertUserData] failed on InsertUserData")
+
+		return docRefID, err
+	}
+
+	return docRefID, nil
+}

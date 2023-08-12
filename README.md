@@ -9,7 +9,8 @@ Simple REST APIs with database firebase cloud firestore
 - Update const value `SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH` based on your sa json location.
 
 # GET
-- [api/users](localhost:8080/api/users) (retrive all users data)
+Retrive all users data
+- [api/users](localhost:8080/api/users)
 - Response :
 
 ```json 
@@ -54,5 +55,36 @@ Simple REST APIs with database firebase cloud firestore
             "Currency": "Bahrain Dinars"
         }
     ]
+}
+```
+
+# POST
+Create new user
+- [api/users](localhost:8080/api/users)
+- Body :
+
+```json 
+{
+    "FirstName": "James",
+    "LastName": "Powell",
+    "Username": "mollitia",
+    "Email": "uOliver@Vipe.biz",
+    "CCNumber": "5347663249612785",
+    "CCType": "Discover",
+    "Country": "Niue",
+    "City": "Ione",
+    "Currency": "Bahrain Dinars"
+}
+```
+
+- Response :
+
+```json 
+{
+    "status": 201,
+    "message": "User data inserted successfully",
+    "data": {
+        "DocRefID": "DYyDOPZ8nJzZWB7Y965J"
+    }
 }
 ```
