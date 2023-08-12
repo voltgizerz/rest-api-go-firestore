@@ -78,10 +78,6 @@ func (u *UserRepository) InsertUserData(ctx context.Context, data entity.User) (
 	})
 
 	if err != nil {
-		logger.Log.WithFields(logrus.Fields{
-			"error": err.Error(),
-		}).Error("[InsertUserData] failed on insert user collection")
-
 		return "", err
 	}
 
