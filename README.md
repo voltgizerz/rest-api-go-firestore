@@ -9,9 +9,50 @@ Simple REST APIs with database firebase cloud firestore
 - Update const value `SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH` based on your sa json location.
 
 # GET
-- TBA
+- [api/users](localhost:8080/api/users) (retrive all users data)
 - Response :
 
 ```json 
--
+{
+    "status": 200,
+    "message": "User data retrieved successfully",
+    "data": [
+        {
+            "DocRefID": "76KbFdZd8kVCawLNBUle",
+            "FirstName": "Debra",
+            "LastName": "Washington",
+            "Username": "eum_quia",
+            "Email": "ipsam_ex@Aivee.org",
+            "CCNumber": "5237378900055256",
+            "CCType": "VISA",
+            "Country": "Dominican Republic",
+            "City": "Orinda",
+            "Currency": "Jordan Dinars"
+        },
+        {
+            "DocRefID": "M0tbZqmFkS3J42xWJ697",
+            "FirstName": "Ashley",
+            "LastName": "Hamilton",
+            "Username": "hNguyen",
+            "Email": "cHunter@Zoonoodle.com",
+            "CCNumber": "379957517654574",
+            "CCType": "MasterCard",
+            "Country": "Kazakhstan",
+            "City": "Ione",
+            "Currency": "United Kingdom Pounds"
+        },
+        {
+            "DocRefID": "XeidVNtUgURCANof8jxc",
+            "FirstName": "James",
+            "LastName": "Powell",
+            "Username": "mollitia",
+            "Email": "uOliver@Vipe.biz",
+            "CCNumber": "5347663249612785",
+            "CCType": "Discover",
+            "Country": "Niue",
+            "City": "Ione",
+            "Currency": "Bahrain Dinars"
+        }
+    ]
+}
 ```
