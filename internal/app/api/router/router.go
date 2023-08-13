@@ -53,7 +53,7 @@ func (r *Router) userRouter() {
 
 		user, err := r.APInteractor.UserInteractor.GetUserDataByDocRefID(ctx, docRefID)
 		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, err.Error(), nil)
+			api.JSONResponse(c, http.StatusInternalServerError, "Failed retrieve data "+docRefID, nil)
 			return
 		}
 
@@ -65,7 +65,7 @@ func (r *Router) userRouter() {
 
 		users, err := r.APInteractor.UserInteractor.GetAllUserData(ctx)
 		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, err.Error(), nil)
+			api.JSONResponse(c, http.StatusInternalServerError, "Failed retrieved data users", nil)
 			return
 		}
 
@@ -84,7 +84,7 @@ func (r *Router) userRouter() {
 
 		docRefID, err := r.APInteractor.UserInteractor.InsertUserData(ctx, user)
 		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, err.Error(), nil)
+			api.JSONResponse(c, http.StatusInternalServerError, "Failed insert data user", nil)
 			return
 		}
 
@@ -100,7 +100,7 @@ func (r *Router) userRouter() {
 
 		success, err := r.APInteractor.UserInteractor.DeleteUserDataByDocRefID(ctx, docRefID)
 		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, err.Error(), nil)
+			api.JSONResponse(c, http.StatusInternalServerError, "Failed delete data user", nil)
 			return
 		}
 
