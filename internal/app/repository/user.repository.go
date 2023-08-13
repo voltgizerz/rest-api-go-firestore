@@ -45,6 +45,7 @@ func (u *UserRepository) GetUserDataByDocRefID(ctx context.Context, docRefID str
 	return user, nil
 }
 
+// TODO handle collection not found
 func (u *UserRepository) DeleteUserDataByDocRefID(ctx context.Context, docRefID string) (bool, error) {
 	docRef := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Doc(docRefID)
 	_, err := docRef.Delete(ctx)

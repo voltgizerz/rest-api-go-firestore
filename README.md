@@ -113,6 +113,35 @@ Create new user
 }
 ```
 
+# PATCH
+Update specific user data
+- [api/users/:docRefID](localhost:8080/api/users/:docRefID)
+- Body :
+
+```json 
+{
+    "FirstName": "James",
+    "LastName": "Powell",
+    "Username": "mollitia",
+    "Email": "uOliver@Vipe.biz",
+    "CCNumber": "5347663249612785",
+    "CCType": "Discover",
+    "Country": "Niue",
+    "City": "Ione",
+    "Currency": "Bahrain Dinars"
+}
+```
+
+- Response :
+
+```json 
+{
+    "status": 200,
+    "message": "User data updated successfully"
+}
+```
+
+
 # DELETE
 Delete specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
