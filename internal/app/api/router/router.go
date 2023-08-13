@@ -5,9 +5,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api"
-	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
-	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interactor"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
 )
 
 const (
@@ -15,14 +13,14 @@ const (
 )
 
 type Router struct {
-	GinEngine    *gin.Engine
-	APInteractor interactor.APInteractor
+	GinEngine  *gin.Engine
+	APIHandler interfaces.APIHandlerInterface
 }
 
-func NewRouter(interactor interactor.APInteractor) *Router {
+func NewRouter(apiHandler interfaces.APIHandlerInterface) *Router {
 	r := &Router{
-		GinEngine:    gin.Default(),
-		APInteractor: interactor,
+		GinEngine:  gin.Default(),
+		APIHandler: apiHandler,
 	}
 
 	r.GinEngine.GET("/ping", func(c *gin.Context) {
@@ -46,68 +44,10 @@ func RunAPIServer(r *Router) {
 }
 
 func (r *Router) userRouter() {
-	r.GinEngine.GET("api/users/:docRefID", func(c *gin.Context) {
-		ctx := c.Request.Context()
+	apiGroup := r.GinEngine.Group("/api")
 
-		docRefID := c.Param("docRefID")
-
-		user, err := r.APInteractor.UserInteractor.GetUserDataByDocRefID(ctx, docRefID)
-		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, "Failed retrieve data "+docRefID, nil)
-			return
-		}
-
-		api.JSONResponse(c, http.StatusOK, "User data retrieved successfully", user)
-	})
-
-	r.GinEngine.GET("/api/users", func(c *gin.Context) {
-		ctx := c.Request.Context()
-
-		users, err := r.APInteractor.UserInteractor.GetAllUserData(ctx)
-		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, "Failed retrieved data users", nil)
-			return
-		}
-
-		api.JSONResponse(c, http.StatusOK, "Users data retrieved successfully", users)
-	})
-
-	r.GinEngine.POST("api/users", func(c *gin.Context) {
-		ctx := c.Request.Context()
-
-		var user entity.User
-		// * currently data user filled by faker
-		// if err := c.ShouldBindJSON(&user); err != nil {
-		// 	api.JSONResponse(c, http.StatusBadRequest, "Invalid request body", nil)
-		// 	return
-		// }
-
-		docRefID, err := r.APInteractor.UserInteractor.InsertUserData(ctx, user)
-		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, "Failed insert data user", nil)
-			return
-		}
-
-		api.JSONResponse(c, http.StatusCreated, "User data inserted successfully", map[string]string{
-			"DocRefID": docRefID,
-		})
-	})
-
-	r.GinEngine.DELETE("api/users/:docRefID", func(c *gin.Context) {
-		ctx := c.Request.Context()
-
-		docRefID := c.Param("docRefID")
-
-		success, err := r.APInteractor.UserInteractor.DeleteUserDataByDocRefID(ctx, docRefID)
-		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, "Failed delete data user", nil)
-			return
-		}
-
-		if success {
-			api.JSONResponse(c, http.StatusOK, "User data deleted successfully", nil)
-		} else {
-			api.JSONResponse(c, http.StatusNotFound, "User data not found", nil)
-		}
-	})
+	apiGroup.GET("/users/:docRefID", r.APIHandler.GetUserByID)
+	apiGroup.GET("/users", r.APIHandler.GetAllUsers)
+	apiGroup.POST("/users", r.APIHandler.InsertUser)
+	apiGroup.DELETE("/users/:docRefID", r.APIHandler.DeleteUser)
 }

@@ -7,6 +7,7 @@ import (
 
 	"github.com/voltgizerz/rest-api-go-firestore/config"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/router"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/handler"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interactor"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/repository"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/usecase"
@@ -31,7 +32,9 @@ func main() {
 		UserInteractor: userUsecase,
 	}
 
-	r := router.NewRouter(interactorAPI)
+	apiHandler := handler.NewAPIHandler(interactorAPI)
+
+	r := router.NewRouter(apiHandler)
 	go router.RunAPIServer(r) // Start the web server in a goroutine
 
 	// Wait for the interrupt signal
