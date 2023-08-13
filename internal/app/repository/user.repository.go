@@ -27,7 +27,35 @@ func NewUserRepository(db *config.Database) interfaces.UserRepositoryInterface {
 	}
 }
 
-func (u *UserRepository) GetUserData(ctx context.Context) ([]entity.User, error) {
+func (u *UserRepository) GetUserDataByDocRefID(ctx context.Context, docRefID string) (entity.User, error) {
+	var user entity.User
+
+	docRef := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Doc(docRefID)
+	docSnapshot, err := docRef.Get(ctx)
+	if err != nil {
+		return user, err
+	}
+
+	err = docSnapshot.DataTo(&user)
+	if err != nil {
+		return user, err
+	}
+	user.DocRefID = docRef.ID
+
+	return user, nil
+}
+
+func (u *UserRepository) DeleteUserDataByDocRefID(ctx context.Context, docRefID string) (bool, error) {
+	docRef := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Doc(docRefID)
+	_, err := docRef.Delete(ctx)
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
+func (u *UserRepository) GetAllUserData(ctx context.Context) ([]entity.User, error) {
 	var users []entity.User
 
 	iter := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Documents(ctx)

@@ -19,8 +19,22 @@ func NewUserUsecase(userRepo interfaces.UserRepositoryInterface) interfaces.User
 	}
 }
 
+func (u *UserUsecase) GetUserDataByDocRefID(ctx context.Context, docRefID string) (*entity.User, error) {
+	user, err := u.UserRepo.GetUserDataByDocRefID(ctx, docRefID)
+	if err != nil {
+		logger.Log.WithFields(logrus.Fields{
+			"doc_ref_if": docRefID,
+			"error":      err.Error(),
+		}).Error("[GetUserDataByDocRefID] failed on GetUserDataByDocRefID")
+
+		return nil, err
+	}
+
+	return &user, nil
+}
+
 func (u *UserUsecase) GetAllUserData(ctx context.Context) ([]entity.User, error) {
-	users, err := u.UserRepo.GetUserData(ctx)
+	users, err := u.UserRepo.GetAllUserData(ctx)
 	if err != nil {
 		logger.Log.WithFields(logrus.Fields{
 			"error": err.Error(),
@@ -39,8 +53,22 @@ func (u *UserUsecase) InsertUserData(ctx context.Context, data entity.User) (str
 			"error": err.Error(),
 		}).Error("[InsertUserData] failed on InsertUserData")
 
-		return docRefID, err
+		return "", err
 	}
 
 	return docRefID, nil
+}
+
+func (u *UserUsecase) DeleteUserDataByDocRefID(ctx context.Context, docRefID string) (bool, error) {
+	success, err := u.UserRepo.DeleteUserDataByDocRefID(ctx, docRefID)
+	if err != nil {
+		logger.Log.WithFields(logrus.Fields{
+			"doc_ref_if": docRefID,
+			"error":      err.Error(),
+		}).Error("[DeleteUserDataByDocRefID] failed on DeleteUserDataByDocRefID")
+
+		return false, err
+	}
+
+	return success, nil
 }
