@@ -40,7 +40,7 @@ Retrive all users data
 ```json 
 {
     "status": 200,
-    "message": "User data retrieved successfully",
+    "message": "Users data retrieved successfully",
     "data": [
         {
             "DocRefID": "76KbFdZd8kVCawLNBUle",
@@ -121,7 +121,6 @@ Delete specific user data
 ```json 
 {
     "status": 200,
-    "message": "User data deleted successfully",
-    "data": null
+    "message": "User data deleted successfully"
 }
 ```

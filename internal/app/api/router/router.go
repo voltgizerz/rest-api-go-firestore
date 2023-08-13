@@ -53,7 +53,7 @@ func (r *Router) userRouter() {
 
 		user, err := r.APInteractor.UserInteractor.GetUserDataByDocRefID(ctx, docRefID)
 		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, "Error fetching user data", nil)
+			api.JSONResponse(c, http.StatusInternalServerError, err.Error(), nil)
 			return
 		}
 
@@ -69,7 +69,7 @@ func (r *Router) userRouter() {
 			return
 		}
 
-		api.JSONResponse(c, http.StatusOK, "User data retrieved successfully", users)
+		api.JSONResponse(c, http.StatusOK, "Users data retrieved successfully", users)
 	})
 
 	r.GinEngine.POST("api/users", func(c *gin.Context) {
@@ -84,7 +84,7 @@ func (r *Router) userRouter() {
 
 		docRefID, err := r.APInteractor.UserInteractor.InsertUserData(ctx, user)
 		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, "Error inserting user data", nil)
+			api.JSONResponse(c, http.StatusInternalServerError, err.Error(), nil)
 			return
 		}
 
@@ -100,7 +100,7 @@ func (r *Router) userRouter() {
 
 		success, err := r.APInteractor.UserInteractor.DeleteUserDataByDocRefID(ctx, docRefID)
 		if err != nil {
-			api.JSONResponse(c, http.StatusInternalServerError, "Error deleting user data", nil)
+			api.JSONResponse(c, http.StatusInternalServerError, err.Error(), nil)
 			return
 		}
 
