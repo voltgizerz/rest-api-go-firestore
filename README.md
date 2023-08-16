@@ -28,7 +28,9 @@ Retrive auth token expires in 1 hour
 Retrive specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
 - Header :
-*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
+```sh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+```
 - Response :
 
 ```json 
@@ -54,7 +56,9 @@ Retrive specific user data
 Retrive all users data
 - [api/users](localhost:8080/api/users)
 - Header :
-*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
+```sh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+```
 - Response :
 
 ```json 
@@ -106,7 +110,9 @@ Retrive all users data
 Create new user
 - [api/users](localhost:8080/api/users)
 - Header :
-*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
+```sh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+```
 - Body :
 
 ```json 
@@ -139,7 +145,9 @@ Create new user
 Update specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
 - Header :
-*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
+```sh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+```
 - Body :
 
 ```json 
@@ -170,7 +178,9 @@ Update specific user data
 Delete specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
 - Header :
-*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
+```sh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+```
 - Response :
 
 ```json 
