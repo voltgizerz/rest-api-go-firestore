@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 
+	"cloud.google.com/go/firestore"
 	"github.com/icrowley/fake"
 	"github.com/sirupsen/logrus"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
@@ -111,4 +112,40 @@ func (u *UserRepository) InsertUserData(ctx context.Context, data entity.User) (
 	}
 
 	return docRef.ID, nil
+}
+
+func (u *UserRepository) UpdateUserData(ctx context.Context, docRefID string, data entity.User) error {
+	updateData := make(map[string]interface{})
+
+	if data.FirstName != "" {
+		updateData["firstname"] = data.FirstName
+	}
+	if data.LastName != "" {
+		updateData["lastname"] = data.LastName
+	}
+	if data.Username != "" {
+		updateData["username"] = data.Username
+	}
+	if data.Email != "" {
+		updateData["email"] = data.Email
+	}
+	if data.CCNumber != "" {
+		updateData["cc_num"] = data.CCNumber
+	}
+	if data.CCType != "" {
+		updateData["cc_type"] = data.CCType
+	}
+	if data.Country != "" {
+		updateData["country"] = data.Country
+	}
+	if data.City != "" {
+		updateData["city"] = data.City
+	}
+	if data.Currency != "" {
+		updateData["currency"] = data.Currency
+	}
+
+	_, err := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Doc(docRefID).Set(ctx, updateData, firestore.MergeAll)
+
+	return err
 }

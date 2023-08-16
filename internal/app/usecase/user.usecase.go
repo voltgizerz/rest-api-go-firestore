@@ -72,3 +72,17 @@ func (u *UserUsecase) DeleteUserDataByDocRefID(ctx context.Context, docRefID str
 
 	return success, nil
 }
+
+func (u *UserUsecase) UpdateUserDataByDocRefID(ctx context.Context, docRefID string, data entity.User) error {
+	err := u.UserRepo.UpdateUserData(ctx, docRefID, data)
+	if err != nil {
+		logger.Log.WithFields(logrus.Fields{
+			"doc_ref_id": docRefID,
+			"error":      err.Error(),
+		}).Error("[UpdateUserDataByDocRefID] failed on UpdateUserData")
+
+		return err
+	}
+
+	return nil
+}

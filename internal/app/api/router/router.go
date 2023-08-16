@@ -52,10 +52,10 @@ func (r *Router) userRouter() {
 	// Use the JWTMiddleware only for the protected routes
 	apiGroup.Use(middleware.JWTMiddleware())
 
-
 	// Define the user-related routes within the apiGroup
 	apiGroup.GET("/users/:docRefID", r.APIHandler.GetUserByID)
 	apiGroup.GET("/users", r.APIHandler.GetAllUsers)
 	apiGroup.POST("/users", r.APIHandler.InsertUser)
 	apiGroup.DELETE("/users/:docRefID", r.APIHandler.DeleteUser)
+	apiGroup.PATCH("/users/:docRefID", r.APIHandler.UpdateUser)
 }

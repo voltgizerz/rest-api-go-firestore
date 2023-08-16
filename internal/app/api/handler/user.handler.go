@@ -68,3 +68,21 @@ func (a *APIHandler) DeleteUser(c *gin.Context) {
 		api.JSONResponse(c, http.StatusNotFound, "User data not found", nil)
 	}
 }
+
+func (a *APIHandler) UpdateUser(c *gin.Context) {
+	docRefID := c.Param("docRefID")
+
+	var user entity.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		api.JSONResponse(c, http.StatusBadRequest, "Invalid request format", nil)
+		return
+	}
+
+	err := a.APInteractor.UserInteractor.UpdateUserDataByDocRefID(c, docRefID, user)
+	if err != nil {
+		api.JSONResponse(c, http.StatusInternalServerError, "Failed to update user data", nil)
+		return
+	}
+
+	api.JSONResponse(c, http.StatusOK, "User data updated successfully", nil)
+}

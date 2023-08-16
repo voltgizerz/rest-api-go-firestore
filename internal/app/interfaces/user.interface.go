@@ -12,6 +12,7 @@ type UserRepositoryInterface interface {
 	InsertUserData(ctx context.Context, data entity.User) (string, error)
 	DeleteUserDataByDocRefID(ctx context.Context, docRefID string) (bool, error)
 	GetUserDataByDocRefID(ctx context.Context, docRefID string) (entity.User, error)
+	UpdateUserData(ctx context.Context, docRefID string, data entity.User) error
 }
 
 type UserUsecaseInterface interface {
@@ -19,6 +20,7 @@ type UserUsecaseInterface interface {
 	InsertUserData(ctx context.Context, data entity.User) (string, error)
 	GetUserDataByDocRefID(ctx context.Context, docRefID string) (*entity.User, error)
 	DeleteUserDataByDocRefID(ctx context.Context, docRefID string) (bool, error)
+	UpdateUserDataByDocRefID(ctx context.Context, docRefID string, data entity.User) error
 }
 
 type APIHandlerInterface interface {
@@ -26,6 +28,7 @@ type APIHandlerInterface interface {
 	GetAllUsers(c *gin.Context)
 	InsertUser(c *gin.Context)
 	DeleteUser(c *gin.Context)
+	UpdateUser(c *gin.Context)
 
 	GenerateToken(c *gin.Context)
 }
