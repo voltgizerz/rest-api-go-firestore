@@ -26,4 +26,6 @@ type APIHandlerInterface interface {
 	GetAllUsers(c *gin.Context)
 	InsertUser(c *gin.Context)
 	DeleteUser(c *gin.Context)
+
+	GenerateToken(c *gin.Context)
 }

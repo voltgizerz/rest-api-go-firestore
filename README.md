@@ -3,14 +3,32 @@ Simple REST APIs with database firebase cloud firestore
 # BUILD WITH
 - Go 1.20
 - [Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart)
+- JWT
 
 # HOW TO RUN PROJECT ?
 - Export your service account credentials, download and place your sa json on credential folder.
 - Update const value `SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH` based on your sa json location.
 
 # GET
+Retrive auth token expires in 1 hour
+- [api/token?client_id=sample&client_secret=this-is-secret](localhost:8080/api/token?client_id=sample&client_secret=this-is-secret)
+- Response :
+
+```json 
+{
+    "status": 200,
+    "message": "Token generated successfully",
+    "data": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0"
+    }
+}
+```
+
+# GET
 Retrive specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
+- Header :
+*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
 - Response :
 
 ```json 
@@ -35,6 +53,8 @@ Retrive specific user data
 # GET
 Retrive all users data
 - [api/users](localhost:8080/api/users)
+- Header :
+*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
 - Response :
 
 ```json 
@@ -85,6 +105,8 @@ Retrive all users data
 # POST
 Create new user
 - [api/users](localhost:8080/api/users)
+- Header :
+*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
 - Body :
 
 ```json 
@@ -116,6 +138,8 @@ Create new user
 # PATCH
 Update specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
+- Header :
+*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
 - Body :
 
 ```json 
@@ -145,6 +169,8 @@ Update specific user data
 # DELETE
 Delete specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
+- Header :
+*Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0*
 - Response :
 
 ```json 

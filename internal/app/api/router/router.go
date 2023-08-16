@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/middleware"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
 )
 
@@ -27,6 +28,8 @@ func NewRouter(apiHandler interfaces.APIHandlerInterface) *Router {
 		c.String(http.StatusOK, "pong!")
 	})
 
+	r.GinEngine.GET("/api/token", r.APIHandler.GenerateToken)
+
 	r.userRouter()
 
 	return r
@@ -46,6 +49,11 @@ func RunAPIServer(r *Router) {
 func (r *Router) userRouter() {
 	apiGroup := r.GinEngine.Group("/api")
 
+	// Use the JWTMiddleware only for the protected routes
+	apiGroup.Use(middleware.JWTMiddleware())
+
+
+	// Define the user-related routes within the apiGroup
 	apiGroup.GET("/users/:docRefID", r.APIHandler.GetUserByID)
 	apiGroup.GET("/users", r.APIHandler.GetAllUsers)
 	apiGroup.POST("/users", r.APIHandler.InsertUser)
