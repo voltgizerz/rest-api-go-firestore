@@ -19,7 +19,7 @@ Retrive auth token expires in 1 hour
     "status": 200,
     "message": "Token generated successfully",
     "data": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
     }
 }
 ```
@@ -29,7 +29,7 @@ Retrive specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
 - Header :
 ```sh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 - Response :
 
@@ -57,7 +57,7 @@ Retrive all users data
 - [api/users](localhost:8080/api/users)
 - Header :
 ```sh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 - Response :
 
@@ -111,7 +111,7 @@ Create new user
 - [api/users](localhost:8080/api/users)
 - Header :
 ```sh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 - Body :
 
@@ -146,7 +146,7 @@ Update specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
 - Header :
 ```sh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 - Body :
 
@@ -179,7 +179,7 @@ Delete specific user data
 - [api/users/:docRefID](localhost:8080/api/users/:docRefID)
 - Header :
 ```sh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTIxOTk0MDd9.IRu93Fih7voykEhgw62RdPyMQYewHe1tFmwqt104CO0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 - Response :
 
