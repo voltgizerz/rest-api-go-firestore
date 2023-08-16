@@ -38,7 +38,10 @@ func (a *APIHandler) InsertUser(c *gin.Context) {
 	ctx := c.Request.Context()
 
 	var user entity.User
-	// Uncomment and use c.ShouldBindJSON(&user) to bind JSON data to user struct
+	if err := c.ShouldBindJSON(&user); err != nil {
+		api.JSONResponse(c, http.StatusBadRequest, "Invalid request format", nil)
+		return
+	}
 
 	docRefID, err := a.APInteractor.UserInteractor.InsertUserData(ctx, user)
 	if err != nil {

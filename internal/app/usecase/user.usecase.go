@@ -2,7 +2,9 @@ package usecase
 
 import (
 	"context"
+	"os"
 
+	"github.com/icrowley/fake"
 	"github.com/sirupsen/logrus"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
@@ -10,12 +12,14 @@ import (
 )
 
 type UserUsecase struct {
-	UserRepo interfaces.UserRepositoryInterface
+	IsUseFakeData bool
+	UserRepo      interfaces.UserRepositoryInterface
 }
 
 func NewUserUsecase(userRepo interfaces.UserRepositoryInterface) interfaces.UserUsecaseInterface {
 	return &UserUsecase{
-		UserRepo: userRepo,
+		UserRepo:      userRepo,
+		IsUseFakeData: os.Getenv("USE_FAKE_DATA") == "true",
 	}
 }
 
@@ -47,6 +51,19 @@ func (u *UserUsecase) GetAllUserData(ctx context.Context) ([]entity.User, error)
 }
 
 func (u *UserUsecase) InsertUserData(ctx context.Context, data entity.User) (string, error) {
+	if u.IsUseFakeData {
+		// Modify data here to use fake data if needed
+		data.FirstName = fake.FirstName()
+		data.LastName = fake.LastName()
+		data.Username = fake.UserName()
+		data.Email = fake.EmailAddress()
+		data.CCNumber = fake.CreditCardNum("")
+		data.CCType = fake.CreditCardType()
+		data.Country = fake.Country()
+		data.City = fake.City()
+		data.Currency = fake.Currency()
+	}
+
 	docRefID, err := u.UserRepo.InsertUserData(ctx, data)
 	if err != nil {
 		logger.Log.WithFields(logrus.Fields{

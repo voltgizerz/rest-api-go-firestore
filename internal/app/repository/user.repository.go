@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"cloud.google.com/go/firestore"
-	"github.com/icrowley/fake"
 	"github.com/sirupsen/logrus"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
@@ -94,19 +93,19 @@ func (u *UserRepository) GetAllUserData(ctx context.Context) ([]entity.User, err
 }
 
 func (u *UserRepository) InsertUserData(ctx context.Context, data entity.User) (string, error) {
-	// Currently using fake data
-	docRef, _, err := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Add(ctx, map[string]interface{}{
-		"firstname": fake.FirstName(),
-		"lastname":  fake.LastName(),
-		"username":  fake.UserName(),
-		"email":     fake.EmailAddress(),
-		"cc_num":    fake.CreditCardNum(""),
-		"cc_type":   fake.CreditCardType(),
-		"country":   fake.Country(),
-		"city":      fake.City(),
-		"currency":  fake.Currency(),
-	})
+	docData := map[string]interface{}{
+		"firstname": data.FirstName,
+		"lastname":  data.LastName,
+		"username":  data.Username,
+		"email":     data.Email,
+		"cc_num":    data.CCNumber,
+		"cc_type":   data.CCType,
+		"country":   data.Country,
+		"city":      data.City,
+		"currency":  data.Currency,
+	}
 
+	docRef, _, err := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Add(ctx, docData)
 	if err != nil {
 		return "", err
 	}
