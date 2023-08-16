@@ -48,12 +48,15 @@ func JWTMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		_, ok := token.Claims.(jwt.MapClaims)
+		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok {
 			api.JSONResponse(c, http.StatusUnauthorized, ErrInvalidTokenClaims, nil)
 			c.Abort()
 			return
 		}
+
+		// Set data in the context
+		c.Set("userID", claims["client_id"])
 
 		c.Next()
 	}
