@@ -1,4 +1,4 @@
-name: Lint & Test
+name: Code Checker
 on:
   pull_request:
     branches:
@@ -9,26 +9,22 @@ on:
       - master
       - develop
     paths:
-      - '*/.go'
       - 'revive.toml'
       - '.github/workflows/revive-lint.yml'
 
 jobs:
 
   lint:
-    name: Lint Service
+    name: Lint and Test
     runs-on: ubuntu-latest
     steps:
 
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: '1.21'
+        go-version: 1.21
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
-    
-    - name: Run Test
+    - name: Run Test Coverage
       run: 	go test -v -cover ./...
 
     - name: Run Revive Action
