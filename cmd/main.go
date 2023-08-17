@@ -6,8 +6,8 @@ import (
 	"syscall"
 
 	"github.com/voltgizerz/rest-api-go-firestore/config"
-	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/router"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/handler"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/router"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interactor"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/repository"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/usecase"

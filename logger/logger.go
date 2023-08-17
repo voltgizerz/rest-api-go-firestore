@@ -14,8 +14,9 @@ var Log *logrus.Logger
 func init() {
 	log := logrus.New()
 	log.SetFormatter(&nested.Formatter{
-		HideKeys:    true,
-		FieldsOrder: []string{"component", "category"},
+		TimestampFormat: "Jan 02 03:04:05.000 PM",
+		HideKeys:        true,
+		FieldsOrder:     []string{"component", "category"},
 	})
 
 	Log = log
