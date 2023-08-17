@@ -9,7 +9,6 @@ on:
       - master
       - develop
     paths:
-      - '*/.go'
       - 'revive.toml'
       - '.github/workflows/revive-lint.yml'
 
