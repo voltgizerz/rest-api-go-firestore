@@ -1,3 +1,4 @@
 credential/sa-key.json
 .env
 logs
+./coverage.out
