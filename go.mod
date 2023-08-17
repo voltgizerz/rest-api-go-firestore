@@ -14,8 +14,6 @@ require (
 	google.golang.org/api v0.134.0
 )
 
-require github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
-
 require (
 	cloud.google.com/go v0.110.4 // indirect
 	cloud.google.com/go/compute v1.20.1 // indirect
