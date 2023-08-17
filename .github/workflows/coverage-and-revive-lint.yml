@@ -9,6 +9,7 @@ on:
       - master
       - develop
     paths:
+      - '*/.go'
       - 'revive.toml'
       - '.github/workflows/revive-lint.yml'
 
@@ -22,9 +23,12 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: 1.21
+        go-version: '1.21'
 
-    - name: Run Test Coverage
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    
+    - name: Run Test
       run: 	go test -v -cover ./...
 
     - name: Run Revive Action
