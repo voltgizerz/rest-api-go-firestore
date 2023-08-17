@@ -1,4 +1,4 @@
-name: Lint & Test
+name: Code Checker
 on:
   pull_request:
     branches:
@@ -16,7 +16,7 @@ on:
 jobs:
 
   lint:
-    name: Lint Service
+    name: Test Coverage & Lint
     runs-on: ubuntu-latest
     steps:
 
