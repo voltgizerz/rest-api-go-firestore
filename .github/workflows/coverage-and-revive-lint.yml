@@ -1,5 +1,4 @@
-name: Code Checker
-
+name: Lint & Test
 on:
   pull_request:
     branches:
@@ -10,40 +9,29 @@ on:
       - master
       - develop
     paths:
-      - '**/*.go'
+      - '*/.go'
       - 'revive.toml'
       - '.github/workflows/revive-lint.yml'
 
 jobs:
+
   lint:
-    name: Test Coverage & Lint
+    name: Lint Service
     runs-on: ubuntu-latest
-
     steps:
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: '1.21'  # Updated to a more recent Go version
 
-      - name: Check out code into the Go module directory
-        uses: actions/checkout@v2
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.21'
 
-      - name: Run Tests and Calculate Coverage
-        run: |
-          go get -u github.com/stretchr/testify
-          go test -coverprofile=coverage.out ./...
-          go tool cover -func=coverage.out
-          go tool cover -html=coverage.out -o coverage.html
-        env:
-          GO111MODULE: auto  # Changed to auto for consistency
+    - name: Run Test Coverage
+      run: 	go test -v -cover ./...
 
-      - name: Upload Code Coverage Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-reports
-          path: coverage.out coverage.html
+    - name: Run Revive Action
+      uses: docker://morphy/revive-action:v2
+      with:
+        config: revive.toml
 
-      - name: Run Revive Action
-        uses: docker://morphy/revive-action:v2
-        with:
-          config: revive.toml
+    - name: Check formatting
+      run: gofmt -l .
