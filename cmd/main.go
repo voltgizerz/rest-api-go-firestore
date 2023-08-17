@@ -5,7 +5,9 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/gin-gonic/gin"
 	"github.com/voltgizerz/rest-api-go-firestore/config"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/auth"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/handler"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/router"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interactor"
@@ -32,9 +34,16 @@ func main() {
 		UserInteractor: userUsecase,
 	}
 
+	auth := auth.NewAuth()
 	apiHandler := handler.NewAPIHandler(interactorAPI)
 
-	r := router.NewRouter(apiHandler)
+	dataRouter := router.Router{
+		GinEngine:  gin.Default(),
+		Auth:       auth,
+		APIHandler: apiHandler,
+	}
+
+	r := router.NewRouter(dataRouter)
 	go router.RunAPIServer(r) // Start the web server in a goroutine
 
 	// Wait for the interrupt signal

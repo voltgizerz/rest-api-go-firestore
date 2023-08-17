@@ -1,0 +1,32 @@
+name: Test and Coverage
+
+on: [push]
+
+jobs:
+  test:
+    name: Run Tests and Calculate Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.20
+
+      - name: Run Tests and Calculate Coverage
+        run: |
+          go get -u github.com/stretchr/testify
+          go test -coverprofile=coverage.out ./...
+          go tool cover -func=coverage.out
+          go tool cover -html=coverage.out -o coverage.html
+        env:
+          GO111MODULE: on
+
+      - name: Upload Code Coverage Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-reports
+          path: coverage.out coverage.html

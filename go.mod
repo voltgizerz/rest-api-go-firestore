@@ -10,8 +10,14 @@ require (
 	github.com/icrowley/fake v0.0.0-20221112152111-d7b7e2276db2
 	github.com/joho/godotenv v1.5.1
 	github.com/sirupsen/logrus v1.9.3
+	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/swag v1.16.1
 	google.golang.org/api v0.134.0
+)
+
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 )
 
 require (

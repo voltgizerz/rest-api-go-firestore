@@ -16,13 +16,15 @@ const (
 
 type Router struct {
 	GinEngine  *gin.Engine
+	Auth       interfaces.AuthInterface
 	APIHandler interfaces.APIHandlerInterface
 }
 
-func NewRouter(apiHandler interfaces.APIHandlerInterface) *Router {
+func NewRouter(dataRouter Router) *Router {
 	r := &Router{
-		GinEngine:  gin.Default(),
-		APIHandler: apiHandler,
+		GinEngine:  dataRouter.GinEngine,
+		Auth:       dataRouter.Auth,
+		APIHandler: dataRouter.APIHandler,
 	}
 
 	gin.DefaultWriter = logger.Log.Writer()
@@ -50,7 +52,7 @@ func (r *Router) generalRouter() {
 		c.String(http.StatusOK, "pong!")
 	})
 
-	r.GinEngine.GET("/api/token", r.APIHandler.GenerateToken)
+	r.GinEngine.GET("/api/token", r.Auth.GenerateToken)
 }
 
 func (r *Router) userRouter() {

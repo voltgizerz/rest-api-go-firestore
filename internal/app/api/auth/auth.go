@@ -1,4 +1,4 @@
-package handler
+package auth
 
 import (
 	"net/http"
@@ -8,29 +8,39 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
 )
 
-var (
-	secretKey = os.Getenv("JWT_SECRET_KEY")
-)
-
-// Image this is a database
-var MapClientSecret = map[string]string{
-	"sample": "this-is-secret",
+type Auth struct {
+	SecretKey       string
+	MapClientSecret map[string]string
 }
 
-func (a *APIHandler) GenerateToken(c *gin.Context) {
+func NewAuth() interfaces.AuthInterface {
+
+	mapClientSecret := map[string]string{ // Image this is a database
+		"sample": "this-is-secret",
+	}
+	auth := &Auth{
+		SecretKey:       os.Getenv("JWT_SECRET_KEY"),
+		MapClientSecret: mapClientSecret,
+	}
+
+	return auth
+}
+
+func (a *Auth) GenerateToken(c *gin.Context) {
 	clientID := c.Query("client_id")
 	clientSecret := c.Query("client_secret")
 
 	// Validate client credentials
-	secret, ok := MapClientSecret[clientID]
+	secret, ok := a.MapClientSecret[clientID]
 	if !ok || secret != clientSecret {
 		api.JSONResponse(c, http.StatusUnauthorized, "Invalid client credentials", nil)
 		return
 	}
 
-	token, err := generateToken(clientID)
+	token, err := a.generateToken(clientID)
 	if err != nil {
 		api.JSONResponse(c, http.StatusInternalServerError, "Failed to generate token", nil)
 		return
@@ -41,15 +51,16 @@ func (a *APIHandler) GenerateToken(c *gin.Context) {
 	})
 }
 
-func generateToken(clientID string) (string, error) {
+func (a *Auth) generateToken(clientID string) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"client_id": clientID,
 		"exp":       time.Now().Add(time.Hour * 1).Unix(),
 	})
 
-	tokenString, err := token.SignedString([]byte(secretKey))
+	tokenString, err := token.SignedString([]byte(a.SecretKey))
 	if err != nil {
 		return "", err
 	}
+
 	return tokenString, nil
 }
