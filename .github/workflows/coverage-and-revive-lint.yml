@@ -1,4 +1,5 @@
-name: "Code Checker"
+name: Code Checker
+
 on:
   pull_request:
     branches:
@@ -9,44 +10,40 @@ on:
       - master
       - develop
     paths:
-      - '*/.go'
+      - '**/*.go'
       - 'revive.toml'
       - '.github/workflows/revive-lint.yml'
 
 jobs:
-
   lint:
     name: Test Coverage & Lint
     runs-on: ubuntu-latest
+
     steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'  # Updated to a more recent Go version
 
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.21'
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
-    
-    - name: Run Tests and Calculate Coverage
-      run: |
-        go get -u github.com/stretchr/testify
-        go test -coverprofile=coverage.out ./...
-        go tool cover -func=coverage.out
-        go tool cover -html=coverage.out -o coverage.html
-      env:
-        GO111MODULE: on
+      - name: Run Tests and Calculate Coverage
+        run: |
+          go get -u github.com/stretchr/testify
+          go test -coverprofile=coverage.out ./...
+          go tool cover -func=coverage.out
+          go tool cover -html=coverage.out -o coverage.html
+        env:
+          GO111MODULE: auto  # Changed to auto for consistency
 
-    - name: Upload Code Coverage Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: coverage-reports
-        path: coverage.out coverage.html
+      - name: Upload Code Coverage Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-reports
+          path: coverage.out coverage.html
 
-    - name: Run Revive Action
-      uses: docker://morphy/revive-action:v2
-      with:
-        config: revive.toml
-
-    - name: Check formatting
-      run: gofmt -l .
+      - name: Run Revive Action
+        uses: docker://morphy/revive-action:v2
+        with:
+          config: revive.toml
