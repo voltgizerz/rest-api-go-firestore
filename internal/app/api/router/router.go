@@ -30,7 +30,9 @@ func NewRouter(dataRouter Router) *Router {
 	gin.DefaultWriter = logger.Log.Writer()
 
 	r.generalRouter()
-	r.userRouter()
+
+	apiBaseRouter := r.GinEngine.Group("/api")
+	r.userRouter(apiBaseRouter)
 
 	return r
 }
@@ -55,12 +57,8 @@ func (r *Router) generalRouter() {
 	r.GinEngine.GET("/api/token", r.Auth.GenerateToken)
 }
 
-func (r *Router) userRouter() {
-	baseRouter := r.GinEngine.Group("/api")
-	usersRouter := baseRouter.Group("/users")
-
-	// Use the JWTMiddleware only for the protected routes
-	usersRouter.Use(middleware.JWTMiddleware())
+func (r *Router) userRouter(baseRouter *gin.RouterGroup) {
+	usersRouter := baseRouter.Group("/users").Use(middleware.JWTMiddleware()) // Use the JWTMiddleware only for the protected routes
 
 	// Define the user-related routes within the usersRouter
 	usersRouter.GET("/:docRefID", r.APIHandler.GetUserByID)
