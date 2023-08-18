@@ -12,6 +12,7 @@ require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/swag v1.16.1
+	go.uber.org/mock v0.2.0
 	google.golang.org/api v0.134.0
 )
 

@@ -30,7 +30,3 @@ type APIHandlerInterface interface {
 	DeleteUser(c *gin.Context)
 	UpdateUser(c *gin.Context)
 }
-
-type AuthInterface interface {
-	GenerateToken(c *gin.Context)
-}

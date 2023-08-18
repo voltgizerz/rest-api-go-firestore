@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +10,7 @@ import (
 )
 
 func (a *APIHandler) GetUserByID(c *gin.Context) {
-	ctx := c.Request.Context()
+	ctx := context.Background()
 
 	docRefID := c.Param("docRefID")
 
