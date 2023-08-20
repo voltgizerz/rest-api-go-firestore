@@ -13,7 +13,7 @@ type TestMocks struct {
 	MockUserInteractor *mocks.MockUserUsecaseInterface
 }
 
-func InitTest(t *testing.T) *TestMocks {
+func InitMockTest(t *testing.T) *TestMocks {
 	ctrl := gomock.NewController(t)
 
 	mockUserInteractor := mocks.NewMockUserUsecaseInterface(ctrl)

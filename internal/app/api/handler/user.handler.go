@@ -11,7 +11,6 @@ import (
 
 func (a *APIHandler) GetUserByID(c *gin.Context) {
 	ctx := context.Background()
-
 	docRefID := c.Param("docRefID")
 
 	user, err := a.APInteractor.UserInteractor.GetUserDataByDocRefID(ctx, docRefID)
@@ -24,7 +23,7 @@ func (a *APIHandler) GetUserByID(c *gin.Context) {
 }
 
 func (a *APIHandler) GetAllUsers(c *gin.Context) {
-	ctx := c.Request.Context()
+	ctx := context.Background()
 
 	users, err := a.APInteractor.UserInteractor.GetAllUserData(ctx)
 	if err != nil {
@@ -36,7 +35,7 @@ func (a *APIHandler) GetAllUsers(c *gin.Context) {
 }
 
 func (a *APIHandler) InsertUser(c *gin.Context) {
-	ctx := c.Request.Context()
+	ctx := context.Background()
 
 	var user entity.User
 	if err := c.ShouldBindJSON(&user); err != nil {
@@ -56,8 +55,7 @@ func (a *APIHandler) InsertUser(c *gin.Context) {
 }
 
 func (a *APIHandler) DeleteUser(c *gin.Context) {
-	ctx := c.Request.Context()
-
+	ctx := context.Background()
 	docRefID := c.Param("docRefID")
 
 	success, err := a.APInteractor.UserInteractor.DeleteUserDataByDocRefID(ctx, docRefID)
@@ -74,6 +72,7 @@ func (a *APIHandler) DeleteUser(c *gin.Context) {
 }
 
 func (a *APIHandler) UpdateUser(c *gin.Context) {
+	ctx := context.Background()
 	docRefID := c.Param("docRefID")
 
 	var user entity.User
@@ -82,7 +81,7 @@ func (a *APIHandler) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	err := a.APInteractor.UserInteractor.UpdateUserDataByDocRefID(c, docRefID, user)
+	err := a.APInteractor.UserInteractor.UpdateUserDataByDocRefID(ctx, docRefID, user)
 	if err != nil {
 		api.JSONResponse(c, http.StatusInternalServerError, "Failed to update user data", nil)
 		return
