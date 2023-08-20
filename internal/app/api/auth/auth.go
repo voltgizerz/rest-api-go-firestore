@@ -19,7 +19,7 @@ type Auth struct {
 func NewAuth() interfaces.AuthInterface {
 
 	mapClientSecret := map[string]string{ // Image this is a database
-		"sample": "this-is-secret",
+		"sample": "BiquzG0JVY3pWPrh8xiVPkbNXyx20Gmn",
 	}
 	auth := &Auth{
 		SecretKey:       os.Getenv("JWT_SECRET_KEY"),
@@ -47,6 +47,7 @@ func (a *Auth) GenerateToken(c *gin.Context) {
 	}
 
 	api.JSONResponse(c, http.StatusOK, "Token generated successfully", map[string]string{
+		"type":  "Bearer",
 		"token": token,
 	})
 }

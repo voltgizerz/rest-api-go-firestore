@@ -10,10 +10,6 @@ import (
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api"
 )
 
-var (
-	secretKey = os.Getenv("JWT_SECRET_KEY")
-)
-
 const (
 	ErrAuthorizationMissing = "Authorization token missing"
 	ErrInvalidToken         = "Invalid token"
@@ -39,7 +35,7 @@ func JWTMiddleware() gin.HandlerFunc {
 		tokenString := tokenParts[1]
 
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			return []byte(secretKey), nil
+			return []byte(getJWTSecretKey()), nil
 		})
 
 		if err != nil || !token.Valid {
@@ -60,4 +56,8 @@ func JWTMiddleware() gin.HandlerFunc {
 
 		c.Next()
 	}
+}
+
+func getJWTSecretKey() string {
+	return os.Getenv("JWT_SECRET_KEY")
 }
