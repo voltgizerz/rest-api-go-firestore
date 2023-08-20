@@ -19,7 +19,7 @@ Retrive auth token expires in 1 hour
     "status": 200,
     "message": "Token generated successfully",
     "data": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzYW1wbGUiLCJleHAiOjE2OTI1MTEyMTh9.b2PwwPbxFNv542XFPilpDwMaBaa3uo1CBiJpbMg3-88",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
         "type": "Bearer"
     }
 }
