@@ -7,20 +7,25 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/voltgizerz/rest-api-go-firestore/config"
+	"github.com/voltgizerz/rest-api-go-firestore/database"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/auth"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/handler"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/router"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interactor"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/repository"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/usecase"
-	"github.com/voltgizerz/rest-api-go-firestore/logger"
+	"github.com/voltgizerz/rest-api-go-firestore/pkg/env"
+	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
 )
 
 func main() {
-	config.LoadENV()
+	env.LoadENV()
+
+	// initialize config
+	cfg := config.NewConfig()
 
 	// initialize database
-	db := config.InitDB()
+	db := database.InitDB(cfg)
 
 	userRepo := repository.NewUserRepository(db)
 

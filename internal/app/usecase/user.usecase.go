@@ -8,7 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
-	"github.com/voltgizerz/rest-api-go-firestore/logger"
+	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
 )
 
 type UserUsecase struct {

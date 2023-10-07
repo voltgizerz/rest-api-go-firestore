@@ -1,0 +1,9 @@
+app:
+  name: 'Go API Firestore'
+  version: '1.0.0'
+
+http:
+  port: '8080'
+
+database:
+  pool_max: 2

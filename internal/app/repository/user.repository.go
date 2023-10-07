@@ -5,12 +5,11 @@ import (
 
 	"cloud.google.com/go/firestore"
 	"github.com/sirupsen/logrus"
+	"github.com/voltgizerz/rest-api-go-firestore/database"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
-	"github.com/voltgizerz/rest-api-go-firestore/logger"
+	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
 	"google.golang.org/api/iterator"
-
-	"github.com/voltgizerz/rest-api-go-firestore/config"
 )
 
 const (
@@ -18,10 +17,10 @@ const (
 )
 
 type UserRepository struct {
-	DB *config.Database
+	DB *database.Database
 }
 
-func NewUserRepository(db *config.Database) interfaces.UserRepositoryInterface {
+func NewUserRepository(db *database.Database) interfaces.UserRepositoryInterface {
 	return &UserRepository{
 		DB: db,
 	}

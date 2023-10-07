@@ -1,7 +1,7 @@
-package config
+package env
 
 import (
-	"github.com/voltgizerz/rest-api-go-firestore/logger"
+	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
 
 	"github.com/joho/godotenv"
 )
