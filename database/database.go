@@ -1,10 +1,11 @@
-package config
+package database
 
 import (
 	"context"
 
 	"cloud.google.com/go/firestore"
-	"github.com/voltgizerz/rest-api-go-firestore/logger"
+	"github.com/voltgizerz/rest-api-go-firestore/config"
+	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
 
 	firebase "firebase.google.com/go"
 	"google.golang.org/api/option"
@@ -20,7 +21,7 @@ type Database struct {
 }
 
 // * InitDB - Make sure your service account credential json correct.
-func InitDB() *Database {
+func InitDB(cfg *config.Config) *Database {
 	ctx := context.Background()
 
 	sa := option.WithCredentialsFile(SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH)

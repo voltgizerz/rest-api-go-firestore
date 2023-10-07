@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/middleware"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
-	"github.com/voltgizerz/rest-api-go-firestore/logger"
+	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
 )
 
 const (

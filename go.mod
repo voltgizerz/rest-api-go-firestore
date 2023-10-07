@@ -8,6 +8,7 @@ require (
 	github.com/antonfisher/nested-logrus-formatter v1.3.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/icrowley/fake v0.0.0-20221112152111-d7b7e2276db2
+	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/joho/godotenv v1.5.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
@@ -17,8 +18,10 @@ require (
 )
 
 require (
+	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	olympos.io/encoding/edn v0.0.0-20201019073823-d3554ca0b0a3 // indirect
 )
 
 require (
