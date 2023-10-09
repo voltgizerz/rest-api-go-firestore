@@ -4,6 +4,8 @@ on:
     branches:
       - master
       - develop
+    paths-ignore:
+      - "**/*.md"
   push:
     branches:
       - master
@@ -11,6 +13,8 @@ on:
     paths:
       - 'revive.toml'
       - '.github/workflows/revive-lint.yml'
+    paths-ignore:
+        - "**/*.md"
 
 jobs:
 
@@ -18,14 +22,39 @@ jobs:
     name: Lint and Test
     runs-on: ubuntu-latest
     steps:
-
-    - name: Set up Go
-      uses: actions/setup-go@v4
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
       with:
-        go-version: 1.21.1
+        go-version: '^1.14.0'
 
-    - name: Run Test Coverage
-      run: 	go test -v -cover ./...
+    - name: Setup GO environment
+      run: |
+            go mod download
+            go get -t .
+
+    - name: Unit tests
+      run: |
+            sudo go test ./... -coverprofile coverage.out -covermode count
+            sudo go tool cover -func coverage.out
+
+    - name: Quality Gate - Test coverage shall be above threshold
+      env:
+          TESTCOVERAGE_THRESHOLD: 0
+      run: |
+            echo "Quality Gate: checking test coverage is above threshold ..."
+            echo "Threshold             : $TESTCOVERAGE_THRESHOLD %"
+            totalCoverage=`go tool cover -func=coverage.out | grep total | grep -Eo '[0-9]+\.[0-9]+'`
+            echo "Current test coverage : $totalCoverage %"
+            if (( $(echo "$totalCoverage $TESTCOVERAGE_THRESHOLD" | awk '{print ($1 > $2)}') )); then
+                echo "OK"
+            else
+                echo "Current test coverage is below threshold. Please add more unit tests or adjust threshold to a lower value."
+                echo "Failed"
+                exit 1
+            fi
+
+    - name: Build
+      run: go build -o myapp
 
     - name: Run Revive Action
       uses: docker://morphy/revive-action:v2
