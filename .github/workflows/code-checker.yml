@@ -53,7 +53,7 @@ jobs:
             fi
 
     - name: Build
-      run: go build -o myapp
+      run: go build ./cmd/main.go -o myapp
 
     - name: Run Revive Action
       uses: docker://morphy/revive-action:v2
