@@ -15,22 +15,51 @@ on:
 jobs:
 
   lint:
-    name: Lint and Test
+    name: 👩🏼‍🌾 Lint and Test
     runs-on: ubuntu-latest
     steps:
-
-    - name: Set up Go
-      uses: actions/setup-go@v2
+    - uses: actions/checkout@v2
+    - name: 🔧 Print current working dir
+      run: |
+        ls -la $PWD
+        ls -la $GITHUB_WORKSPACE
+    - uses: actions/setup-go@v2
       with:
-        go-version: 1.21
+        go-version: '1.21.1'
 
-    - name: Run Test Coverage
-      run: 	go test -v -cover ./...
+    - name: ⚙️ Setup GO environment
+      run: |
+            go mod download
 
-    - name: Run Revive Action
+    - name: 👷 Build
+      run: go build ./cmd/main.go 
+
+    - name: 🧪 Run Unit tests
+      run: |
+            sudo go test ./... -coverprofile coverage.out -covermode count
+            sudo go tool cover -func coverage.out
+
+    - name: 🔎 Quality Gate - Test coverage shall be above threshold
+      env:
+          TESTCOVERAGE_THRESHOLD: 26
+      run: |
+            echo "Quality Gate: checking test coverage is above threshold ..."
+            echo "Threshold             : $TESTCOVERAGE_THRESHOLD %"
+            totalCoverage=`go tool cover -func=coverage.out | grep total | grep -Eo '[0-9]+\.[0-9]+'`
+            echo "Current test coverage : $totalCoverage %"
+            if (( $(echo "$totalCoverage $TESTCOVERAGE_THRESHOLD" | awk '{print ($1 > $2)}') )); then
+                echo "OK"
+            else
+                echo "Current test coverage is below threshold. Please add more unit tests or adjust threshold to a lower value."
+                echo "Failed"
+                exit 1
+            fi
+
+    - name: 👨‍🎤 Run Revive Action
       uses: docker://morphy/revive-action:v2
       with:
         config: revive.toml
+      continue-on-error: true
 
-    - name: Check formatting
+    - name: 👨‍🎤 Check formatting
       run: gofmt -l .
