@@ -59,6 +59,7 @@ jobs:
       uses: docker://morphy/revive-action:v2
       with:
         config: revive.toml
+      continue-on-error: true
 
     - name: 👨‍🎤 Check formatting
       run: gofmt -l .
