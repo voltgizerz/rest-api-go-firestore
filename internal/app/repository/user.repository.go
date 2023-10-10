@@ -48,16 +48,20 @@ func (u *UserRepository) GetUserDataByDocRefID(ctx context.Context, docRefID str
 // TODO NOTE : Using Snapshot To Validate
 func (u *UserRepository) DeleteUserDataByDocRefID(ctx context.Context, docRefID string) (bool, error) {
 	docRef := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Doc(docRefID)
-	_, errs := docRef.Get(ctx)
-	if errs != nil {
+	snapshot, err := docRef.Get(ctx)
+	if err != nil {
 		return false, nil
 	}
-	_, err := docRef.Delete(ctx)
-	if err != nil {
-		return false, err
+	if snapshot.Exists() {
+		_, err := docRef.Delete(ctx)
+		if err != nil {
+			return false, err
+		}
+		return true, nil
+	} else {
+		return false, nil
 	}
 
-	return true, nil
 }
 
 func (u *UserRepository) GetAllUserData(ctx context.Context) ([]entity.User, error) {
