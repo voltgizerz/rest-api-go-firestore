@@ -58,9 +58,8 @@ func (u *UserRepository) DeleteUserDataByDocRefID(ctx context.Context, docRefID 
 			return false, err
 		}
 		return true, nil
-	} else {
-		return false, nil
 	}
+	return false, nil
 
 }
 
