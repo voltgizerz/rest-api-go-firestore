@@ -23,7 +23,7 @@ type (
 	}
 
 	Database struct {
-		PoolMax int    `env-required:"true" yaml:"pool_max"`
+		PoolMax int `env-required:"true" yaml:"pool_max"`
 	}
 )
 
