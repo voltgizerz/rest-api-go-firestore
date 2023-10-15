@@ -1,4 +1,4 @@
-credential/sa-key.json
+config/credential/sa-key.json
 .env
 logs
 ./coverage.out
