@@ -2,3 +2,4 @@ credential/sa-key.json
 .env
 logs
 ./coverage.out
+config.prod.yml

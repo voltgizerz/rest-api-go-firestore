@@ -2,24 +2,24 @@ package usecase
 
 import (
 	"context"
-	"os"
 
 	"github.com/icrowley/fake"
 	"github.com/sirupsen/logrus"
+	"github.com/voltgizerz/rest-api-go-firestore/config"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
 	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
 )
 
 type UserUsecase struct {
-	IsUseFakeData bool
-	UserRepo      interfaces.UserRepositoryInterface
+	AppConfig config.App
+	UserRepo  interfaces.UserRepositoryInterface
 }
 
-func NewUserUsecase(userRepo interfaces.UserRepositoryInterface) interfaces.UserUsecaseInterface {
+func NewUserUsecase(cfgApp config.App, userRepo interfaces.UserRepositoryInterface) interfaces.UserUsecaseInterface {
 	return &UserUsecase{
-		UserRepo:      userRepo,
-		IsUseFakeData: os.Getenv("USE_FAKE_DATA") == "true",
+		AppConfig: cfgApp,
+		UserRepo:  userRepo,
 	}
 }
 
@@ -51,7 +51,7 @@ func (u *UserUsecase) GetAllUserData(ctx context.Context) ([]entity.User, error)
 }
 
 func (u *UserUsecase) InsertUserData(ctx context.Context, data entity.User) (string, error) {
-	if u.IsUseFakeData {
+	if u.AppConfig.IsUseFakeData {
 		// Modify data here to use fake data if needed
 		data.FirstName = fake.FirstName()
 		data.LastName = fake.LastName()
