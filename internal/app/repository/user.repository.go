@@ -45,23 +45,24 @@ func (u *UserRepository) GetUserDataByDocRefID(ctx context.Context, docRefID str
 }
 
 // TODO handle collection not found
+// TODO NOTE : Using Snapshot To Validate
 func (u *UserRepository) DeleteUserDataByDocRefID(ctx context.Context, docRefID string) (bool, error) {
 	docRef := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Doc(docRefID)
-
-	// Check if the document reference exists before attempting to delete it
-	docSnapshot, err := docRef.Get(ctx)
+	snapshot, err := docRef.Get(ctx)
 	if err != nil {
-		return false, err
+		return false, nil
 	}
 
-	if docSnapshot.Exists() {
-		_, err = docRef.Delete(ctx)
+	if snapshot.Exists() {
+		_, err := docRef.Delete(ctx)
 		if err != nil {
 			return false, err
 		}
+
+		return true, nil
 	}
 
-	return true, nil
+	return false, nil
 }
 
 func (u *UserRepository) GetAllUserData(ctx context.Context) ([]entity.User, error) {
