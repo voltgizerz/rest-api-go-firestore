@@ -2,11 +2,11 @@ package auth
 
 import (
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/voltgizerz/rest-api-go-firestore/config"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
 )
@@ -16,13 +16,12 @@ type Auth struct {
 	MapClientSecret map[string]string
 }
 
-func NewAuth() interfaces.AuthInterface {
-
-	mapClientSecret := map[string]string{ // Image this is a database
+func NewAuth(cfgAuth config.Auth) interfaces.AuthInterface {
+	mapClientSecret := map[string]string{ // imagine this is a database
 		"sample": "BiquzG0JVY3pWPrh8xiVPkbNXyx20Gmn",
 	}
 	auth := &Auth{
-		SecretKey:       os.Getenv("JWT_SECRET_KEY"),
+		SecretKey:       cfgAuth.JWTSecretKey,
 		MapClientSecret: mapClientSecret,
 	}
 

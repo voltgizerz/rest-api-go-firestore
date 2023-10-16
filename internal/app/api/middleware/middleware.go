@@ -2,11 +2,11 @@ package middleware
 
 import (
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/voltgizerz/rest-api-go-firestore/config"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api"
 )
 
@@ -16,7 +16,7 @@ const (
 	ErrInvalidTokenClaims   = "Invalid token claims"
 )
 
-func JWTMiddleware() gin.HandlerFunc {
+func JWTMiddleware(cfgAuth config.Auth) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
@@ -35,7 +35,7 @@ func JWTMiddleware() gin.HandlerFunc {
 		tokenString := tokenParts[1]
 
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			return []byte(getJWTSecretKey()), nil
+			return []byte(cfgAuth.JWTSecretKey), nil
 		})
 
 		if err != nil || !token.Valid {
@@ -56,8 +56,4 @@ func JWTMiddleware() gin.HandlerFunc {
 
 		c.Next()
 	}
-}
-
-func getJWTSecretKey() string {
-	return os.Getenv("JWT_SECRET_KEY")
 }

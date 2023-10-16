@@ -2,9 +2,9 @@ package router
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/voltgizerz/rest-api-go-firestore/config"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api/middleware"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/interfaces"
 	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
@@ -15,13 +15,15 @@ const (
 )
 
 type Router struct {
+	AuthConfig config.Auth
 	GinEngine  *gin.Engine
 	Auth       interfaces.AuthInterface
 	APIHandler interfaces.APIHandlerInterface
 }
 
-func NewRouter(dataRouter Router) *Router {
+func NewRouter(cfgAuth config.Auth, dataRouter Router) *Router {
 	r := &Router{
+		AuthConfig: cfgAuth,
 		GinEngine:  dataRouter.GinEngine,
 		Auth:       dataRouter.Auth,
 		APIHandler: dataRouter.APIHandler,
@@ -37,11 +39,11 @@ func NewRouter(dataRouter Router) *Router {
 	return r
 }
 
-func RunAPIServer(r *Router) {
-	gin.SetMode(getGinModeFromEnv())
+func RunAPIServer(cfgHTTP config.HTTP, r *Router) {
+	gin.SetMode(getGinModeFromCfg(cfgHTTP.GinMode))
 
 	// Read the port number from the environment variable
-	port := os.Getenv("PORT")
+	port := cfgHTTP.Port
 	if port == "" {
 		port = defaultPort
 	}
@@ -57,8 +59,8 @@ func (r *Router) generalRouter() {
 	r.GinEngine.GET("/api/token", r.Auth.GenerateToken)
 }
 
-func (r *Router) userRouter(baseRouter *gin.RouterGroup) {
-	usersRouter := baseRouter.Group("/users").Use(middleware.JWTMiddleware()) // Use the JWTMiddleware only for the protected routes
+func (r *Router) userRouter( baseRouter *gin.RouterGroup) {
+	usersRouter := baseRouter.Group("/users").Use(middleware.JWTMiddleware(r.AuthConfig)) // Use the JWTMiddleware only for the protected routes
 
 	// Define the user-related routes within the usersRouter
 	usersRouter.GET("/:docRefID", r.APIHandler.GetUserByID)
@@ -68,9 +70,7 @@ func (r *Router) userRouter(baseRouter *gin.RouterGroup) {
 	usersRouter.PATCH("/:docRefID", r.APIHandler.UpdateUser)
 }
 
-func getGinModeFromEnv() string {
-	ginMode := os.Getenv("GIN_MODE")
-
+func getGinModeFromCfg(ginMode string) string {
 	switch ginMode {
 	case "release":
 		return gin.ReleaseMode

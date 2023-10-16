@@ -29,7 +29,7 @@ func main() {
 
 	userRepo := repository.NewUserRepository(db)
 
-	userUsecase := usecase.NewUserUsecase(userRepo)
+	userUsecase := usecase.NewUserUsecase(cfg.App, userRepo)
 
 	// Initialize a channel to listen for interrupt signals (e.g., Ctrl+C)
 	quit := make(chan os.Signal, 1)
@@ -39,7 +39,7 @@ func main() {
 		UserInteractor: userUsecase,
 	}
 
-	auth := auth.NewAuth()
+	auth := auth.NewAuth(cfg.Auth)
 	apiHandler := handler.NewAPIHandler(interactorAPI)
 
 	dataRouter := router.Router{
@@ -48,8 +48,8 @@ func main() {
 		APIHandler: apiHandler,
 	}
 
-	r := router.NewRouter(dataRouter)
-	go router.RunAPIServer(r) // Start the web server in a goroutine
+	r := router.NewRouter(cfg.Auth, dataRouter)
+	go router.RunAPIServer(cfg.HTTP, r) // Start the web server in a goroutine
 
 	// Wait for the interrupt signal
 	<-quit

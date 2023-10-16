@@ -52,15 +52,17 @@ func (u *UserRepository) DeleteUserDataByDocRefID(ctx context.Context, docRefID 
 	if err != nil {
 		return false, nil
 	}
+
 	if snapshot.Exists() {
 		_, err := docRef.Delete(ctx)
 		if err != nil {
 			return false, err
 		}
+
 		return true, nil
 	}
-	return false, nil
 
+	return false, nil
 }
 
 func (u *UserRepository) GetAllUserData(ctx context.Context) ([]entity.User, error) {
