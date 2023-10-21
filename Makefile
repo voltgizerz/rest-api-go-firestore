@@ -1,12 +1,12 @@
 run:
-	go run ./cmd/main.go
+	go run ./cmd/app.go
 
 format:
 	gofmt -w ./..
 	revive -config revive.toml ./...
 
 build:
-	go build ./cmd/main.go
+	go build ./cmd/app.go
 
 test:
 	go test -v -cover ./...
