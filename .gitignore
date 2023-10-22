@@ -3,3 +3,4 @@ config/credential/sa-key.json
 logs
 ./coverage.out
 config.production.yml
+app.exe
