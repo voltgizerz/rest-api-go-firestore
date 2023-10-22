@@ -53,7 +53,7 @@ type (
 func NewConfig() *Config {
 	cfg := &Config{}
 
-	err := cleanenv.ReadConfig("./config/config-dev.yml", cfg)
+	err := cleanenv.ReadConfig("./config/config-development.yml", cfg) // Change this base on your env
 	if err != nil {
 		logger.Log.Fatalln(err)
 	}
