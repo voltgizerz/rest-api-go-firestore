@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH = "./config/credential/sa-key.json"
+	SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH = "./config/credential/sa-sample.json"
 )
 
 // Database - client

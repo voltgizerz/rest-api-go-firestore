@@ -5,13 +5,21 @@ Simple REST APIs with database firebase cloud firestore
 - JWT Authorization
 - [Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart) Database
 
-# HOW TO RUN PROJECT ?
-- Export your service account credentials, download and place your sa json on credential folder.
-- Update const value `SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH` based on your sa json location.
+# How to Run Project
+
+Follow these steps to run the project:
+
+1. Create a Cloud Firestore database by following this [Guide](https://firebase.google.com/docs/firestore/quickstart).
+
+2. Export your service account credentials on the project settings in the Firebase console. Download the service-account JSON file and place it in the credentials folder: `rest-api-go-firestore/config/credential/sa-sample.json`.
+
+3. Update the constant value in `rest-api-go-firestore/database/database.go` named `SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH` based on the location of your service account JSON file.
+
+4. Run the application using the following command: `go run ./cmd/app.go`
 
 # GET
 Retrive auth token expires in 1 hour
-- [api/token?client_id=sample&client_secret=this-is-secret](localhost:8080/api/token?client_id=sample&client_secret=this-is-secret)
+- [api/token?client_id=sample&client_secret=BiquzG0JVY3pWPrh8xiVPkbNXyx20Gmn](localhost:8080/api/token?client_id=sample&client_secret=BiquzG0JVY3pWPrh8xiVPkbNXyx20Gmn)
 - Response :
 
 ```json 
