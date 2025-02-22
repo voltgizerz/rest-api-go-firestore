@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/icrowley/fake"
+	"github.com/opentracing/opentracing-go"
 	"github.com/sirupsen/logrus"
 	"github.com/voltgizerz/rest-api-go-firestore/config"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
@@ -24,6 +25,9 @@ func NewUserUsecase(cfgApp config.App, userRepo interfaces.UserRepositoryInterfa
 }
 
 func (u *UserUsecase) GetUserDataByDocRefID(ctx context.Context, docRefID string) (*entity.User, error) {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userUsecase.GetUserDataByDocRefID")
+	defer span.Finish()
+
 	user, err := u.UserRepo.GetUserDataByDocRefID(ctx, docRefID)
 	if err != nil {
 		logger.Log.WithFields(logrus.Fields{
@@ -38,6 +42,9 @@ func (u *UserUsecase) GetUserDataByDocRefID(ctx context.Context, docRefID string
 }
 
 func (u *UserUsecase) GetAllUserData(ctx context.Context) ([]entity.User, error) {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userUsecase.GetAllUserData")
+	defer span.Finish()
+
 	users, err := u.UserRepo.GetAllUserData(ctx)
 	if err != nil {
 		logger.Log.WithFields(logrus.Fields{
@@ -51,6 +58,9 @@ func (u *UserUsecase) GetAllUserData(ctx context.Context) ([]entity.User, error)
 }
 
 func (u *UserUsecase) InsertUserData(ctx context.Context, data entity.User) (string, error) {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userUsecase.InsertUserData")
+	defer span.Finish()
+
 	if u.AppConfig.IsUseFakeData {
 		// Modify data here to use fake data if needed
 		data.FirstName = fake.FirstName()
@@ -77,6 +87,9 @@ func (u *UserUsecase) InsertUserData(ctx context.Context, data entity.User) (str
 }
 
 func (u *UserUsecase) DeleteUserDataByDocRefID(ctx context.Context, docRefID string) (bool, error) {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userUsecase.DeleteUserDataByDocRefID")
+	defer span.Finish()
+
 	success, err := u.UserRepo.DeleteUserDataByDocRefID(ctx, docRefID)
 	if err != nil {
 		logger.Log.WithFields(logrus.Fields{
@@ -91,6 +104,9 @@ func (u *UserUsecase) DeleteUserDataByDocRefID(ctx context.Context, docRefID str
 }
 
 func (u *UserUsecase) UpdateUserDataByDocRefID(ctx context.Context, docRefID string, data entity.User) error {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userUsecase.UpdateUserDataByDocRefID")
+	defer span.Finish()
+
 	err := u.UserRepo.UpdateUserData(ctx, docRefID, data)
 	if err != nil {
 		logger.Log.WithFields(logrus.Fields{

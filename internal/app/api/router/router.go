@@ -59,7 +59,7 @@ func (r *Router) generalRouter() {
 	r.GinEngine.GET("/api/token", r.Auth.GenerateToken)
 }
 
-func (r *Router) userRouter( baseRouter *gin.RouterGroup) {
+func (r *Router) userRouter(baseRouter *gin.RouterGroup) {
 	usersRouter := baseRouter.Group("/users").Use(middleware.JWTMiddleware(r.AuthConfig)) // Use the JWTMiddleware only for the protected routes
 
 	// Define the user-related routes within the usersRouter

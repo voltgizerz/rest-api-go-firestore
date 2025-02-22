@@ -2,17 +2,16 @@ package database
 
 import (
 	"context"
+	"fmt"
 
 	"cloud.google.com/go/firestore"
-	"github.com/voltgizerz/rest-api-go-firestore/config"
-	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
-
 	firebase "firebase.google.com/go"
 	"google.golang.org/api/option"
-)
 
-const (
-	SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH = "./config/credential/sa-sample.json"
+	"github.com/opentracing/opentracing-go"
+	"github.com/voltgizerz/rest-api-go-firestore/config"
+	"github.com/voltgizerz/rest-api-go-firestore/pkg/env"
+	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
 )
 
 // Database - client
@@ -20,22 +19,24 @@ type Database struct {
 	FirestoreClient *firestore.Client
 }
 
-// * InitDB - Make sure your service account credential json correct.
-func InitDB(cfg *config.Config) *Database {
-	ctx := context.Background()
+func InitDB(ctx context.Context, cfg *config.Config) *Database {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "database.InitDB")
+	defer span.Finish()
 
-	sa := option.WithCredentialsFile(SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH)
+	// * Make sure your service account credential json correct.
+	serviceAccountFirestoreFilePath := fmt.Sprintf("./config/credential/sa-%s.json", env.GetENV())
+	sa := option.WithCredentialsFile(serviceAccountFirestoreFilePath)
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
-		logger.Log.Fatalln(err)
+		logger.Log.Fatalf("[InitDB.NewApp] err: %v", err)
 	}
 
 	client, err := app.Firestore(ctx)
 	if err != nil {
-		logger.Log.Fatalln(err)
+		logger.Log.Fatalf("[InitDB.Firestore] err: %v", err)
 	}
 
-	logger.Log.Info("Database firestore connected succesfully...")
+	logger.Log.Info("[InitDB] Database firestore connected succesfully...")
 
 	return &Database{
 		FirestoreClient: client,
