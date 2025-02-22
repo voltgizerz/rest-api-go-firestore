@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"cloud.google.com/go/firestore"
+	"github.com/opentracing/opentracing-go"
 	"github.com/sirupsen/logrus"
 	"github.com/voltgizerz/rest-api-go-firestore/database"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/entity"
@@ -27,6 +28,9 @@ func NewUserRepository(db *database.Database) interfaces.UserRepositoryInterface
 }
 
 func (u *UserRepository) GetUserDataByDocRefID(ctx context.Context, docRefID string) (entity.User, error) {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userRepository.GetUserDataByDocRefID")
+	defer span.Finish()
+
 	var user entity.User
 
 	docRef := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Doc(docRefID)
@@ -47,6 +51,9 @@ func (u *UserRepository) GetUserDataByDocRefID(ctx context.Context, docRefID str
 // TODO handle collection not found
 // TODO NOTE : Using Snapshot To Validate
 func (u *UserRepository) DeleteUserDataByDocRefID(ctx context.Context, docRefID string) (bool, error) {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userRepository.DeleteUserDataByDocRefID")
+	defer span.Finish()
+
 	docRef := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Doc(docRefID)
 	snapshot, err := docRef.Get(ctx)
 	if err != nil {
@@ -66,6 +73,9 @@ func (u *UserRepository) DeleteUserDataByDocRefID(ctx context.Context, docRefID 
 }
 
 func (u *UserRepository) GetAllUserData(ctx context.Context) ([]entity.User, error) {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userRepository.GetAllUserData")
+	defer span.Finish()
+
 	var users []entity.User
 
 	iter := u.DB.FirestoreClient.Collection(USER_COLLECTION_NAME).Documents(ctx)
@@ -102,6 +112,9 @@ func (u *UserRepository) GetAllUserData(ctx context.Context) ([]entity.User, err
 }
 
 func (u *UserRepository) InsertUserData(ctx context.Context, data entity.User) (string, error) {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userRepository.InsertUserData")
+	defer span.Finish()
+
 	docData := map[string]interface{}{
 		"firstname": data.FirstName,
 		"lastname":  data.LastName,
@@ -123,6 +136,9 @@ func (u *UserRepository) InsertUserData(ctx context.Context, data entity.User) (
 }
 
 func (u *UserRepository) UpdateUserData(ctx context.Context, docRefID string, data entity.User) error {
+	span, ctx := opentracing.StartSpanFromContext(ctx, "userRepository.UpdateUserData")
+	defer span.Finish()
+
 	updateData := make(map[string]interface{})
 
 	if data.FirstName != "" {

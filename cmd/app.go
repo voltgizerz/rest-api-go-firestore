@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"os"
 	"os/signal"
 	"syscall"
@@ -19,13 +20,15 @@ import (
 )
 
 func main() {
-	env.LoadENV()
+	ctx := context.Background()
+
+	env.LoadENV(ctx)
 
 	// initialize config
-	cfg := config.NewConfig()
+	cfg := config.NewConfig(ctx)
 
 	// initialize database
-	db := database.InitDB(cfg)
+	db := database.InitDB(ctx, cfg)
 
 	userRepo := repository.NewUserRepository(db)
 

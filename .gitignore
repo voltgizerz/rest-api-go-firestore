@@ -1,6 +1,10 @@
 config/credential/sa-key.json
+config/credential/sa-production.json
 .env
+.env.production
 logs
 ./coverage.out
-config.production.yml
+config-production.yml
+sa-production.json
+sa-key.json
 app.exe

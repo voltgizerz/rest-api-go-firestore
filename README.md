@@ -11,11 +11,9 @@ Follow these steps to run the project:
 
 1. Create a Cloud Firestore database by following this [Guide](https://firebase.google.com/docs/firestore/quickstart).
 
-2. Export your service account credentials on the project settings in the Firebase console. Download the service-account JSON file and place it in the credentials folder: `rest-api-go-firestore/config/credential/sa-sample.json`.
+2. Export your service account credentials on the project settings in the Firebase console. Download the service-account JSON file and place it in the credentials folder: `rest-api-go-firestore/config/credential/sa-{YOUR_GO_ENV}.json`.
 
-3. Update the constant value in `rest-api-go-firestore/database/database.go` named `SERVICE_ACCOUNT_CREDENTIAL_FILE_PATH` based on the location of your service account JSON file.
-
-4. Run the application using the following command: `go run ./cmd/app.go`
+3. Run the application using the following command: `go run ./cmd/app.go`
 
 # GET
 Retrive auth token expires in 1 hour
@@ -47,16 +45,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     "status": 200,
     "message": "User data retrieved successfully",
     "data": {
-        "DocRefID": "iCOmqSXxG8bJZfVJ8iuj",
-        "FirstName": "Gerald",
-        "LastName": "Fisher",
-        "Username": "BettyHolmes",
-        "Email": "quia@Flipopia.name",
-        "CCNumber": "4916791396904137",
-        "CCType": "Discover",
-        "Country": "Uruguay",
-        "City": "Santa Monica",
-        "Currency": "Albania Leke"
+        "docRefId": "iCOmqSXxG8bJZfVJ8iuj",
+        "firstName": "Gerald",
+        "lastName": "Fisher",
+        "username": "BettyHolmes",
+        "email": "quia@Flipopia.name",
+        "ccNumber": "4916791396904137",
+        "ccType": "Discover",
+        "country": "Uruguay",
+        "city": "Santa Monica",
+        "currency": "Albania Leke"
     }
 }
 ```
@@ -76,40 +74,40 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     "message": "Users data retrieved successfully",
     "data": [
         {
-            "DocRefID": "76KbFdZd8kVCawLNBUle",
-            "FirstName": "Debra",
-            "LastName": "Washington",
-            "Username": "eum_quia",
-            "Email": "ipsam_ex@Aivee.org",
-            "CCNumber": "5237378900055256",
-            "CCType": "VISA",
-            "Country": "Dominican Republic",
-            "City": "Orinda",
-            "Currency": "Jordan Dinars"
+            "docRefId": "76KbFdZd8kVCawLNBUle",
+            "firstName": "Debra",
+            "lastName": "Washington",
+            "username": "eum_quia",
+            "email": "ipsam_ex@Aivee.org",
+            "ccNumber": "5237378900055256",
+            "ccType": "VISA",
+            "country": "Dominican Republic",
+            "city": "Orinda",
+            "currency": "Jordan Dinars"
         },
         {
-            "DocRefID": "M0tbZqmFkS3J42xWJ697",
-            "FirstName": "Ashley",
-            "LastName": "Hamilton",
-            "Username": "hNguyen",
-            "Email": "cHunter@Zoonoodle.com",
-            "CCNumber": "379957517654574",
-            "CCType": "MasterCard",
-            "Country": "Kazakhstan",
-            "City": "Ione",
-            "Currency": "United Kingdom Pounds"
+            "docRefId": "M0tbZqmFkS3J42xWJ697",
+            "firstName": "Ashley",
+            "lastName": "Hamilton",
+            "username": "hNguyen",
+            "email": "cHunter@Zoonoodle.com",
+            "ccNumber": "379957517654574",
+            "ccType": "MasterCard",
+            "country": "Kazakhstan",
+            "city": "Ione",
+            "currency": "United Kingdom Pounds"
         },
         {
-            "DocRefID": "XeidVNtUgURCANof8jxc",
-            "FirstName": "James",
-            "LastName": "Powell",
-            "Username": "mollitia",
-            "Email": "uOliver@Vipe.biz",
-            "CCNumber": "5347663249612785",
-            "CCType": "Discover",
-            "Country": "Niue",
-            "City": "Ione",
-            "Currency": "Bahrain Dinars"
+            "docRefId": "XeidVNtUgURCANof8jxc",
+            "firstName": "James",
+            "lastName": "Powell",
+            "username": "mollitia",
+            "email": "uOliver@Vipe.biz",
+            "ccNumber": "5347663249612785",
+            "ccType": "Discover",
+            "country": "Niue",
+            "city": "Ione",
+            "currency": "Bahrain Dinars"
         }
     ]
 }
@@ -145,7 +143,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     "status": 201,
     "message": "User data inserted successfully",
     "data": {
-        "DocRefID": "DYyDOPZ8nJzZWB7Y965J"
+        "docRefID": "DYyDOPZ8nJzZWB7Y965J"
     }
 }
 ```
@@ -161,15 +159,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ```json 
 {
-    "FirstName": "James",
-    "LastName": "Powell",
-    "Username": "mollitia",
-    "Email": "uOliver@Vipe.biz",
-    "CCNumber": "5347663249612785",
-    "CCType": "Discover",
-    "Country": "Niue",
-    "City": "Ione",
-    "Currency": "Bahrain Dinars"
+    "firstName": "James",
+    "lastName": "Powell",
+    "username": "mollitia",
+    "email": "uOliver@Vipe.biz",
+    "ccNumber": "5347663249612785",
+    "ccType": "Discover",
+    "country": "Niue",
+    "city": "Ione",
+    "currency": "Bahrain Dinars"
 }
 ```
 
