@@ -1,0 +1,11 @@
+app:
+  name: 'Go API Firestore'
+  version: '1.0.0'
+  is_use_fake_data: true
+
+http:
+  gin_mode: debug
+  port: '8080'
+
+database:
+  pool_max: 2
