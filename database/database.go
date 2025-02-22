@@ -28,7 +28,7 @@ func InitDB(ctx context.Context, cfg *config.Config) *Database {
 	sa := option.WithCredentialsFile(serviceAccountFirestoreFilePath)
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
-		logger.Log.Fatalf("[InitDB.NewApp] err: %v", err)
+		logger.Log.Fatalf("[InitDB.NewApp] filePath: %s, err: %v", serviceAccountFirestoreFilePath, err)
 	}
 
 	client, err := app.Firestore(ctx)
