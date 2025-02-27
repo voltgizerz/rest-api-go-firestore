@@ -17,7 +17,7 @@ type Auth struct {
 }
 
 func NewAuth(cfgAuth config.Auth) interfaces.AuthInterface {
-	mapClientSecret := map[string]string{ // imagine this is a database
+	mapClientSecret := map[string]string{ // imagine this data got from database
 		"sample": "BiquzG0JVY3pWPrh8xiVPkbNXyx20Gmn",
 	}
 	auth := &Auth{
