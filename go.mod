@@ -1,6 +1,6 @@
 module github.com/voltgizerz/rest-api-go-firestore
 
-go 1.20
+go 1.23.2
 
 require (
 	cloud.google.com/go/firestore v1.12.0
@@ -10,6 +10,7 @@ require (
 	github.com/icrowley/fake v0.0.0-20221112152111-d7b7e2276db2
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/joho/godotenv v1.5.1
+	github.com/opentracing/opentracing-go v1.2.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/swag v1.16.1
@@ -20,7 +21,6 @@ require (
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	olympos.io/encoding/edn v0.0.0-20201019073823-d3554ca0b0a3 // indirect
 )
