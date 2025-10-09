@@ -45,13 +45,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     "status": 200,
     "message": "User data retrieved successfully",
     "data": {
-        "docRefId": "iCOmqSXxG8bJZfVJ8iuj",
-        "firstName": "Gerald",
-        "lastName": "Fisher",
+        "doc_ref_id": "iCOmqSXxG8bJZfVJ8iuj",
+        "first_name": "Gerald",
+        "last_name": "Fisher",
         "username": "BettyHolmes",
         "email": "quia@Flipopia.name",
-        "ccNumber": "4916791396904137",
-        "ccType": "Discover",
+        "cc_number": "4916791396904137",
+        "cc_type": "Discover",
         "country": "Uruguay",
         "city": "Santa Monica",
         "currency": "Albania Leke"
@@ -74,37 +74,37 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     "message": "Users data retrieved successfully",
     "data": [
         {
-            "docRefId": "76KbFdZd8kVCawLNBUle",
-            "firstName": "Debra",
-            "lastName": "Washington",
+            "doc_ref_id": "76KbFdZd8kVCawLNBUle",
+            "first_name": "Debra",
+            "last_name": "Washington",
             "username": "eum_quia",
             "email": "ipsam_ex@Aivee.org",
-            "ccNumber": "5237378900055256",
-            "ccType": "VISA",
+            "cc_number": "5237378900055256",
+            "cc_type": "VISA",
             "country": "Dominican Republic",
             "city": "Orinda",
             "currency": "Jordan Dinars"
         },
         {
-            "docRefId": "M0tbZqmFkS3J42xWJ697",
-            "firstName": "Ashley",
-            "lastName": "Hamilton",
+            "doc_ref_id": "M0tbZqmFkS3J42xWJ697",
+            "first_name": "Ashley",
+            "last_name": "Hamilton",
             "username": "hNguyen",
             "email": "cHunter@Zoonoodle.com",
-            "ccNumber": "379957517654574",
-            "ccType": "MasterCard",
+            "cc_number": "379957517654574",
+            "cc_type": "MasterCard",
             "country": "Kazakhstan",
             "city": "Ione",
             "currency": "United Kingdom Pounds"
         },
         {
-            "docRefId": "XeidVNtUgURCANof8jxc",
-            "firstName": "James",
-            "lastName": "Powell",
+            "doc_ref_id": "XeidVNtUgURCANof8jxc",
+            "first_name": "James",
+            "last_name": "Powell",
             "username": "mollitia",
             "email": "uOliver@Vipe.biz",
-            "ccNumber": "5347663249612785",
-            "ccType": "Discover",
+            "cc_number": "5347663249612785",
+            "cc_type": "Discover",
             "country": "Niue",
             "city": "Ione",
             "currency": "Bahrain Dinars"
@@ -124,12 +124,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ```json 
 {
-    "FirstName": "James",
-    "LastName": "Powell",
+    "first_name": "James",
+    "last_name": "Powell",
     "Username": "mollitia",
     "Email": "uOliver@Vipe.biz",
-    "CCNumber": "5347663249612785",
-    "CCType": "Discover",
+    "cc_number": "5347663249612785",
+    "cc_type": "Discover",
     "Country": "Niue",
     "City": "Ione",
     "Currency": "Bahrain Dinars"
@@ -143,7 +143,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     "status": 201,
     "message": "User data inserted successfully",
     "data": {
-        "docRefID": "DYyDOPZ8nJzZWB7Y965J"
+        "doc_ref_id": "DYyDOPZ8nJzZWB7Y965J"
     }
 }
 ```
@@ -159,12 +159,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ```json 
 {
-    "firstName": "James",
-    "lastName": "Powell",
+    "first_name": "James",
+    "last_name": "Powell",
     "username": "mollitia",
     "email": "uOliver@Vipe.biz",
-    "ccNumber": "5347663249612785",
-    "ccType": "Discover",
+    "cc_number": "5347663249612785",
+    "cc_type": "Discover",
     "country": "Niue",
     "city": "Ione",
     "currency": "Bahrain Dinars"
