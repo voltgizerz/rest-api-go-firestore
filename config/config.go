@@ -31,7 +31,8 @@ type (
 	}
 
 	Database struct {
-		PoolMax int `env-required:"true" yaml:"pool_max"`
+		FirestoreServiceAccount string `env-required:"true" env:"SERVICE_ACCOUNT_FIREBASE"`
+		PoolMax                 int    `env-required:"true" yaml:"pool_max"`
 	}
 
 	Auth struct {
