@@ -1,7 +1,7 @@
 # REST API Go With Firebase Cloud Firestore
 Simple REST APIs with database firebase cloud firestore
 # BUILD WITH
-- Go 1.20 or higher
+- Go 1.23.2 or higher
 - JWT Authorization
 - [Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart) Database
 
@@ -11,7 +11,7 @@ Follow these steps to run the project:
 
 1. Create a Cloud Firestore database by following this [Guide](https://firebase.google.com/docs/firestore/quickstart).
 
-2. Export your service account credentials on the project settings in the Firebase console. Download the service-account JSON file and place it in the credentials folder: `rest-api-go-firestore/config/credential/sa-{YOUR_GO_ENV}.json`.
+2. Export your service account credentials on the project settings in the Firebase console. Download the service-account JSON file and convert the JSON into a single-line (minified) format and store it in an environment file named `SERVICE_ACCOUNT_FIREBASE`.
 
 3. Run the application using the following command: `go run ./cmd/app.go`
 

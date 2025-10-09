@@ -2,7 +2,6 @@ package database
 
 import (
 	"context"
-	"fmt"
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
@@ -10,7 +9,6 @@ import (
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/voltgizerz/rest-api-go-firestore/config"
-	"github.com/voltgizerz/rest-api-go-firestore/pkg/env"
 	"github.com/voltgizerz/rest-api-go-firestore/pkg/logger"
 )
 
@@ -23,12 +21,10 @@ func InitDB(ctx context.Context, cfg *config.Config) *Database {
 	span, ctx := opentracing.StartSpanFromContext(ctx, "database.InitDB")
 	defer span.Finish()
 
-	// * Make sure your service account credential json correct.
-	serviceAccountFirestoreFilePath := fmt.Sprintf("./config/credential/sa-%s.json", env.GetENV())
-	sa := option.WithCredentialsFile(serviceAccountFirestoreFilePath)
+	sa := option.WithCredentialsJSON([]byte(cfg.Database.FirestoreServiceAccount))
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
-		logger.Log.Fatalf("[InitDB.NewApp] filePath: %s, err: %v", serviceAccountFirestoreFilePath, err)
+		logger.Log.Fatalf("[InitDB.NewApp] got err: %v", err)
 	}
 
 	client, err := app.Firestore(ctx)
