@@ -8,26 +8,21 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/voltgizerz/rest-api-go-firestore/config"
 	"github.com/voltgizerz/rest-api-go-firestore/internal/app/api"
-)
-
-const (
-	ErrAuthorizationMissing = "Authorization token missing"
-	ErrInvalidToken         = "Invalid token"
-	ErrInvalidTokenClaims   = "Invalid token claims"
+	"github.com/voltgizerz/rest-api-go-firestore/internal/app/constant"
 )
 
 func JWTMiddleware(cfgAuth config.Auth) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		authHeader := c.GetHeader("Authorization")
+		authHeader := c.GetHeader(constant.HeaderAuthorization)
 		if authHeader == "" {
-			api.JSONResponse(c, http.StatusUnauthorized, ErrAuthorizationMissing, nil)
+			api.JSONResponse(c, http.StatusUnauthorized, constant.ErrAuthorizationMissing, nil)
 			c.Abort()
 			return
 		}
 
 		tokenParts := strings.Split(authHeader, " ")
-		if len(tokenParts) != 2 || tokenParts[0] != "Bearer" {
-			api.JSONResponse(c, http.StatusUnauthorized, ErrInvalidToken, nil)
+		if len(tokenParts) != 2 || tokenParts[0] != constant.HeaderAuthType {
+			api.JSONResponse(c, http.StatusUnauthorized, constant.ErrInvalidToken, nil)
 			c.Abort()
 			return
 		}
@@ -39,14 +34,14 @@ func JWTMiddleware(cfgAuth config.Auth) gin.HandlerFunc {
 		})
 
 		if err != nil || !token.Valid {
-			api.JSONResponse(c, http.StatusUnauthorized, ErrInvalidToken, nil)
+			api.JSONResponse(c, http.StatusUnauthorized, constant.ErrInvalidToken, nil)
 			c.Abort()
 			return
 		}
 
 		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok {
-			api.JSONResponse(c, http.StatusUnauthorized, ErrInvalidTokenClaims, nil)
+			api.JSONResponse(c, http.StatusUnauthorized, constant.ErrInvalidTokenClaims, nil)
 			c.Abort()
 			return
 		}

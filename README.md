@@ -1,6 +1,6 @@
 # REST API Go With Firebase Cloud Firestore
 Simple REST APIs with database firebase cloud firestore
-# BUILD WITH
+# Build With
 - Go 1.23.2 or higher
 - JWT Authorization
 - [Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart) Database

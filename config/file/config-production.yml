@@ -4,7 +4,7 @@ app:
   is_use_fake_data: true
 
 http:
-  gin_mode: debug
+  gin_mode: release
   port: '8080'
 
 database:

@@ -18,7 +18,7 @@ cover-out:
 	go test ./...  -coverpkg=./... -coverprofile ./coverage.out
 
 install:
-	go install go.uber.org/mock/mockgen@latest
+	go install go.uber.org/mock/mockgen@v0.6.0
 
 gen-mock: install
 	@mkdir -p $(MOCK_DIR)
