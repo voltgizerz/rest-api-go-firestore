@@ -12,6 +12,10 @@ var Log *logrus.Logger
 
 // SetupLog - return logrus.
 func init() {
+	if Log != nil {
+		return
+	}
+
 	log := logrus.New()
 	log.SetFormatter(&nested.Formatter{
 		TimestampFormat: "Jan 02 03:04:05.000 PM",
